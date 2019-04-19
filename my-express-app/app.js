@@ -25,7 +25,7 @@ const connectToMongo = async function () {
 }
 connectToMongo();
 
-//middleware
+//middleware 
 app.post('*', function (req, resp, next) {
     try {
         if (Object.keys(req.body).length === 0) {
