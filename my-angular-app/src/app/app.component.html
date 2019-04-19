@@ -1,0 +1,76 @@
+<div class="row">
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title mb-4 mt-1">Sign in</h4>
+                <form [formGroup]="signinForm" (ngSubmit)="onSignIn()">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Email" type="email"
+                            [formControl]="signinForm.get('email')">
+                        <div *ngIf="!signinForm.get('email').valid"> Invalid Email </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Password" type="password"
+                            [formControl]="signinForm.get('password')">
+                        <div *ngIf="!signinForm.get('email').valid"> Invalid Password </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label> <input type="checkbox"> Remember me </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="!signinForm.valid"> Login
+                        </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </aside>
+
+    <aside class="col-sm-4">
+    </aside>
+
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-body">
+                <h4 class="card-title mb-4 mt-1">Sign Up</h4>
+                <form [formGroup]="singupForm" (ngSubmit)="onSignUp()">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="First Name" type="text"
+                            [formControl]="singupForm.get('firstname')">
+                        <div *ngIf="!singupForm.get('firstname').valid">Invalid First Name</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Last Name" type="text"
+                            [formControl]="singupForm.get('lastname')">
+                        <div *ngIf="!singupForm.get('lastname').valid">Invalid Last Name</div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Email" type="email"
+                            [formControl]="singupForm.get('email')">
+                        <div *ngIf="!singupForm.get('email').valid"> Invalid Email </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Password" type="password"
+                            [formControl]="singupForm.get('password')">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Confirm Password" type="password"
+                            [formControl]="singupForm.get('confirmpassword')">
+                        <div *ngIf="!singupForm.get('confirmpassword').valid">Invalid Passwords or must match</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label> <input type="checkbox"> I accept the Terms of Use and Privacy Policy. </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="!singupForm.valid"> Register
+                        </button>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </aside>
+</div>
