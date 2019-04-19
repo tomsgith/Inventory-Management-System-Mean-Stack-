@@ -91,7 +91,7 @@ app.post('/login', function (req, res) {
         collection.find({ email: req.body.email }).toArray((err, user) => {
             if (err) {
                 res.status(500).send({ hasError: true, message: "Error while login" });
-                res.end()
+                res.end() 
                 return
             }
             if (user.length == 0) {
