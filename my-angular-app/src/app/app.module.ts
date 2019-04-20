@@ -5,15 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './product/product.component';
+import { SalesformComponent } from './salesform/salesform.component';
 
 const appRoutes: Routes = [
-  { path: '', component: AppComponent, pathMatch: 'full' }
+  { path: '', component: AppComponent, pathMatch: 'full' },
+  { path: 'sales', component: SalesformComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    SalesformComponent
   ],
   imports: [
     BrowserModule,

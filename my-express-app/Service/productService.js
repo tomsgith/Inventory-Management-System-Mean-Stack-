@@ -22,6 +22,7 @@ class ProductService {
     update(queryObj, updateObj) {
         return from(Product.updateOne(queryObj, updateObj));
     }
+    
 
     delete(queryObj) {}
 }
