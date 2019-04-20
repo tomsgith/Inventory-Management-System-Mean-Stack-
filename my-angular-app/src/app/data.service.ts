@@ -14,18 +14,18 @@ export class DataService {
   }
 
   verifyemail(emailModel: Object) {
-    return this.http.post(this.baseUrl + '/verifyemail', emailModel)
+    return this.http.post(this.baseUrl + '/api/auth/verifyemail', emailModel)
   }
 
   register(userModel: UserModel): Observable<UserResponse> {
-    return this.http.post<UserResponse>(this.baseUrl + '/register', userModel)
+    return this.http.post<UserResponse>(this.baseUrl + '/api/auth/register', userModel)
       .pipe(
         tap((user: UserResponse) => console.log(user))
       );
   }
 
   login(userModel: UserModel): Observable<UserResponse> {
-    return this.http.post<UserResponse>(this.baseUrl + '/login', userModel)
+    return this.http.post<UserResponse>(this.baseUrl + '/api/auth/login', userModel)
       .pipe(
         tap((user: UserResponse) => console.log(user))
       );
