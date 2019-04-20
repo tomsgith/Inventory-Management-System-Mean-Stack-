@@ -11,25 +11,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeComponent } from './employee/employee.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
+import { SupplierComponent } from './supplier/supplier.component';
 
 const appRoutes: Routes = [
-  { path: 'sales', component: SalesformComponent, pathMatch: 'full' }
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UserComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'employee', component: EmployeeComponent }
+  { path: 'employee', component: EmployeeComponent },
+  { path: 'supplier', component: SupplierComponent },
+  { path: 'sale', component: SalesformComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
-    SalesformComponent
+    SalesformComponent,
     ProductComponent,
     HomeComponent,
     UserComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,

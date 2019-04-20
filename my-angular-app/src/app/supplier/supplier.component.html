@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" style="color: white">IMS</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/home']">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/product']">Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/sale']">Sale</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/employee']">Employee</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/supplier']">Supplier <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="navMarginTop">
+  <div class="row">
+
+    <div class="col-md-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        Supplier
+      </h4>
+      <form class="card p-2" style="margin-bottom: 15px;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Name" (keyup)="onKey($event)">
+          <div class="input-group-append">
+            <button type="submit" (click)="onSearchClick()" class="btn btn-secondary">Search</button>
+          </div>
+        </div>
+      </form>
+      <ul class="list-group mb-3">
+        <li *ngFor="let supplier of suppliers" class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{supplier.name}}</h6>
+            <small class="text-muted">Category: {{supplier.type}}</small>
+          </div>
+          <span class="text-muted">
+            <i class="material-icons" style="vertical-align: middle">
+              create
+            </i>
+            <i class="material-icons" style="vertical-align: middle; margin-right: 10px">
+              delete_sweep
+            </i>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-8">
+      <h4 class="mb-3">Supplier Information</h4>
+      <form class="needs-validation" novalidate="">
+        <div class="mb-3">
+          <label for="address">Supplier</label>
+          <input type="text" class="form-control" id="address" placeholder="Supplier 1" required="">
+          <div class="invalid-feedback">
+            Please enter your supplier name.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Phone</label>
+          <input type="text" class="form-control" id="address" placeholder="123 456 7890" required="">
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address2">Address <span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="address2" placeholder="Street, City, State">
+        </div>
+
+        <hr class="mb-4">
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+      </form>
+    </div>
+
+  </div>
+</div>

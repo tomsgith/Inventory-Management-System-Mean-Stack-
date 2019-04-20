@@ -5,6 +5,7 @@ const helmet = require('helmet')
 const authRoute = require('./Routes/AuthRoute')
 const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
+const supplierRoute = require('./Routes/SupplierRoute')
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/inventory', { useNewUrlParser: true });
 //init
@@ -19,6 +20,7 @@ app.use(helmet())
 app.use('/api/auth', authRoute)
 app.use('/api/sales', salesRoute)
 app.use('/api/products', productSales)
+app.use('/api/supplier', supplierRoute)
 
 //error handling 
 app.use(function (err, req, resp, next) {
