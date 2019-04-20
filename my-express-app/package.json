@@ -16,6 +16,7 @@
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.2.3",
-    "mongoose": "^5.5.2"
+    "mongoose": "^5.5.2",
+    "rxjs": "^6.4.0"
   }
 }

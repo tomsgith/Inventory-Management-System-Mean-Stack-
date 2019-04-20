@@ -14,8 +14,7 @@ router.post("/register", async (req, res) => {
                 res.end()
             } else {
                 userModel.save(function (err, _userModel) {
-                    if (err)
-                        return console.error(err);
+                    if (err) return console.error(err);
                     res.status(200).send({ token: userModel.generateToken(), hasError: false, message: "User registered successfully" });
                     res.end()
                 });
@@ -30,8 +29,7 @@ router.post("/register", async (req, res) => {
 router.post('/verifyemail', async function (req, res) {
     try {
         let userModel = new UserModel(req.body)
-        UserModel.findOne({ email: userModel.email }, function (err, user) {
-            console
+        await UserModel.findOne({ email: userModel.email }, function (err, user) {
             if (user) {
                 res.status(200).send({ hasError: false, message: "Email exists" });
                 res.end()
@@ -48,38 +46,19 @@ router.post('/verifyemail', async function (req, res) {
 
 router.post('/login', async function (req, res) {
     try {
-        await req.collection.find({ email: req.body.email }).toArray((err, user) => {
-            if (err) {
-                res.status(500).send({ hasError: true, message: "Error while login" });
-                res.end()
-                return
-            }
-            if (user.length == 0) {
+        let userModel = new UserModel(req.body)
+        await UserModel.findOne({ email: userModel.email }, function (err, user) {
+            if (!user) {
                 res.status(202).send({ hasError: true, message: "No user found" });
                 res.end()
-                return
-            }
-
-            user.comparePassword(password, function (err, isMatch) {
-                if (isMatch && !err) {
-                    debug("User authenticated, generating token");
-                    utils.create(user, req, res, next);
-                } else {
-                    return next(new UnauthorizedAccessError("401", {
-                        message: 'Invalid username or password'
-                    }));
-                }
-            });
-
-            var passwordIsValid = bcrypt.compareSync(req.body.password, user[0].password);
-            if (!passwordIsValid) {
+            } else if (!bcrypt.compareSync(userModel.password, user.password)) {
                 res.status(401).send({ auth: false, token: null, hasError: true, message: "Invalid credentials" });
                 res.end()
-                return
+            } else {
+                var token = jwt.sign({ id: user._id }, config.secret, { expiresIn: 86400 });
+                res.status(200).send({ auth: true, token: token, hasError: false, message: "Welcome" });
+                res.end()
             }
-            var token = jwt.sign({ id: user._id }, config.secret, { expiresIn: 86400 });
-            res.status(200).send({ auth: true, token: token, hasError: false, message: "Welcome" });
-            res.end()
         })
     } catch (e) {
         res.status(500).send(e);

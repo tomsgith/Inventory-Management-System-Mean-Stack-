@@ -22,6 +22,11 @@ UserSchema.methods.hashPassword = function () {
     this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10))
 }
 
+UserSchema.methods.comparePassword = function (password) {
+    console.log(this.password)
+    return bcrypt.compareSync(password, this.password);
+}
+
 UserSchema.methods.log = function () {
     console.log(this);
 }
