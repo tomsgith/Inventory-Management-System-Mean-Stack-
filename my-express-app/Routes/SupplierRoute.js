@@ -20,6 +20,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:name", async (req, res) => {
     try {
+        console.log(req.params.name)
         SupplierModel.find({name: { $regex: req.params.name }}, function (err, suppliers) {
             if (suppliers) {
                 res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
