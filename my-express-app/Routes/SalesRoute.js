@@ -52,8 +52,21 @@ router.post('/', function (req, res, next) {
                 );
     
                 });
-                router.post('/sales', function (req, res, next) {
-                    productService.add(req.body)
+                router.post('/sale', function (req, res, next) {
+                    console.log("soerking")
+                    const quantity=0;
+                    
+                    productService.getOne(req.body._id)
+                    .then((product)=>quantity=product.quantity)
+                    .catch((err)=>console.log(err))
+                    
+                    const updateObj = {"quantity":quantity-req.body.quantity};
+                    const queryObj={"_id":req.body._id}
+                    productService.update(queryObj,updateObj)
+                    .then(()=>console.log("succes"))
+                    .catch(()=>console.log("cant update"))
+
+                    productSale.add(req.body)
                       .then(() => res.status(200).json({
                         success: true
                       }))
