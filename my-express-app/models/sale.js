@@ -20,5 +20,5 @@ saleSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = mongoose.model('products',productSchema);
+module.exports = mongoose.model('sales',saleSchema);
 
