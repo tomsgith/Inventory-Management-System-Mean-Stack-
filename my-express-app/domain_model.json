@@ -1,6 +1,37 @@
 {
-    "firstname": "",
-    "lastname": "",
-    "email": "",
-    "password": ""
+    "warehouse_name": "",
+    "address": "",
+    "users": [
+        {
+            "firstname": "",
+            "lastname": "",
+            "phone": "",
+            "email": "",
+            "password": "",
+            "IsAdmin": true
+        }
+    ],
+    "products": [
+        {
+            "name": "",
+            "brand": "",
+            "description": "",
+            "quantity": 5,
+            "type": "",
+            "price": 0,
+            "username": ""
+        }
+    ],
+    "sales": [
+        {
+            "name": "",
+            "brand": "",
+            "description": "",
+            "quantity": 5,
+            "type": "",
+            "price": 0,
+            "date": "",
+            "username": ""
+        }
+    ]
 }
