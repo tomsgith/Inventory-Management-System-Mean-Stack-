@@ -27,104 +27,75 @@
 
 
 <div class="navMarginTop">
-    <div class="row">
-  
-      <div class="col-md-4">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          Your cart
-        </h4>
-        <form class="card p-2" style="margin-bottom: 15px;">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Name">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-secondary">Search</button>
-            </div>
+  <div class="row">
+
+    <div class="col-md-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        Supplier
+      </h4>
+      <form class="card p-2" style="margin-bottom: 15px;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Name" (keyup)="onKey($event)">
+          <div class="input-group-append">
+            <button type="submit" (click)="onSearchClick()" class="btn btn-secondary">Search</button>
           </div>
-        </form>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Employee name</h6>
-              <small class="text-muted">Email</small>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Employee name</h6>
-              <small class="text-muted">Email</small>
-              <span class="text-muted">x</span>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Employee name</h6>
-              <small class="text-muted">Email</small>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
-            </div>
-            <span class="text-muted">
-              <i class="material-icons" style="vertical-align: middle">
-                create
-              </i>
-              <i class="material-icons" style="vertical-align: middle; margin-right: 10px">
-                delete_sweep
-              </i>
-            </span>
-          </li>
-        </ul>
-      </div>
-  
-      <div class="col-md-8">
-        <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate="">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="firstName">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required=""
-                style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="lastName">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
+        </div>
+      </form>
+      <ul class="list-group mb-3">
+        <li *ngFor="let supplier of suppliers" class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{supplier.name}}</h6>
+            <small class="text-muted">Category: {{supplier.type}}</small>
           </div>
-  
-          <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-            <div class="invalid-feedback">
-              Please enter a valid email address for shipping updates.
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="address">Phone</label>
-            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-            <div class="invalid-feedback">
-              Please enter your shipping address.
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-          </div>
-  
-          <hr class="mb-4">
-          
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Sale</button>
-        </form>
-      </div>
-  
+          <span class="text-muted">
+            <i class="material-icons" style="vertical-align: middle">
+              create
+            </i>
+            <i class="material-icons" style="vertical-align: middle; margin-right: 10px">
+              delete_sweep
+            </i>
+          </span>
+        </li>
+      </ul>
     </div>
+
+    <div class="col-md-8">
+      <h4 class="mb-3">Supplier Information</h4>
+      <form class="needs-validation" novalidate="">
+        <div class="mb-3">
+          <label for="address">Supplier</label>
+          <input type="text" class="form-control" id="address" placeholder="Supplier 1" required="">
+          <div class="invalid-feedback">
+            Please enter your supplier name.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="you@example.com">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Phone</label>
+          <input type="text" class="form-control" id="address" placeholder="123 456 7890" required="">
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address2">Address <span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="address2" placeholder="Street, City, State">
+        </div>
+
+        <hr class="mb-4">
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+      </form>
+    </div>
+
   </div>
+</div>
