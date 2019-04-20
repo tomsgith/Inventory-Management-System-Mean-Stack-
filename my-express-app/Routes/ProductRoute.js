@@ -34,12 +34,18 @@ router.put('/:id',(req,res,next)=>{
     const id= req.param.id;
     product = req.body;
     productService.update(id,product)
-    .subscribe(
-       
+    .subscribe(       
         (data)=> res.status(200).json(data),
         (err)=> next(err),null);
    
 });
+router.delete('/:id',(req,res,next)=>{
+    const id = req.param.id;
+    productService.delete(id).subscribe(
+        (data)=> {console.log('product deleted successfully')},
+        (err) => next(err), null);
+});
+
 
 
 
