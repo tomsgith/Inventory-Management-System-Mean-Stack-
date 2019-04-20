@@ -51,7 +51,6 @@ export class UserComponent {
   }
 
   onSignUp(): void {
-    console.log(">>>", this.singupForm)
     this.dataService.register(this.singupForm.value)
       .subscribe((res) => {
         if (res.hasError)

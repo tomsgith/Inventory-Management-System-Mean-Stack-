@@ -36,13 +36,11 @@
       <form class="card p-2" style="margin-bottom: 15px;">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Name" (keyup)="onKey($event)">
-          <div class="input-group-append">
-            <button type="submit" (click)="onSearchClick()" class="btn btn-secondary">Search</button>
-          </div>
         </div>
       </form>
       <ul class="list-group mb-3">
-        <li *ngFor="let supplier of suppliers" class="list-group-item d-flex justify-content-between lh-condensed">
+        <li *ngFor="let supplier of suppliers" (click)="onSupplierSelected(supplier)"
+          class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">{{supplier.name}}</h6>
             <small class="text-muted">Category: {{supplier.type}}</small>
@@ -61,39 +59,47 @@
 
     <div class="col-md-8">
       <h4 class="mb-3">Supplier Information</h4>
-      <form class="needs-validation" novalidate="">
+      <form class="needs-validation" novalidate="" [formGroup]="supplierForm" (ngSubmit)="onSaveSupplier()">
+
         <div class="mb-3">
           <label for="address">Supplier</label>
-          <input type="text" class="form-control" id="address" placeholder="Supplier 1" required="">
-          <div class="invalid-feedback">
+          <input type="text" class="form-control" id="name" placeholder="Supplier 1"
+            [formControl]="supplierForm.get('name')">
+          <div class="invalid-feedback" *ngIf="!supplierForm.get('name').valid">
             Please enter your supplier name.
           </div>
         </div>
 
         <div class="mb-3">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
+          <input type="email" class="form-control" id="email" placeholder="you@example.com"
+            [formControl]="supplierForm.get('email')">
+          <div class="invalid-feedback" *ngIf="!supplierForm.get('email').valid">
+            Please enter a valid email address.
           </div>
         </div>
 
         <div class="mb-3">
           <label for="address">Phone</label>
-          <input type="text" class="form-control" id="address" placeholder="123 456 7890" required="">
-          <div class="invalid-feedback">
-            Please enter your shipping address.
+          <input type="text" class="form-control" id="phone" placeholder="123 456 7890"
+            [formControl]="supplierForm.get('phone')">
+          <div class="invalid-feedback" *ngIf="!supplierForm.get('phone').valid">
+            Please enter your phone.
           </div>
         </div>
 
         <div class="mb-3">
           <label for="address2">Address <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" placeholder="Street, City, State">
+          <input type="text" class="form-control" id="address" placeholder="Street, City, State"
+            [formControl]="supplierForm.get('address')">
         </div>
+
+        <input hidden [formControl]="supplierForm.get('_id')">
 
         <hr class="mb-4">
 
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button>
+        <button *ngIf="!isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!supplierForm.valid">Update</button>
+        <button *ngIf="isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!supplierForm.valid">Save</button>
       </form>
     </div>
 
