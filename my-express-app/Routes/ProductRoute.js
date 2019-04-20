@@ -1,11 +1,17 @@
 const router = require('express').Router()
-const Product = require('../models/product');
-const productService = require('../Service/productService');
 
-router.post('/', (req, res) => {
-   productService.a
-    
-});
+const ProductService = require('../Service/productService');
+const productService=new ProductService();
+
+
+router.post('/', function (req, res, next) {
+
+    productService.add(req.body)
+      .then(() => res.status(200).json({
+        success: true
+      }))
+      .catch((err) => next(err));
+  });
 
 // router.get('/', (req, res, next) => {
     

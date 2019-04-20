@@ -6,6 +6,7 @@ class ProductService {
     }
 
     add(productObj) {
+       
         let newProduct = new Product(productObj);
         return newProduct.save();
 
