@@ -32,7 +32,7 @@ export class DataService {
   }
 
   getSupplierByName(name: String): Observable<SupplierResponse> {
-    return this.http.get<SupplierResponse>(this.baseUrl + '/supplier/' + name)
+    return this.http.get<SupplierResponse>(this.baseUrl + '/products/' + name)
   }
 }
 
