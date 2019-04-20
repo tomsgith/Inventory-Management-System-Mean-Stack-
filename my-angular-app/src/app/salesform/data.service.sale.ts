@@ -1,38 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+//import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class SaleDataService {
   baseUrl: string = "http://localhost:3000/api"
 
   constructor(private http: HttpClient) {
 
   }
 
-  verifyemail(emailModel: Object) {
-    return this.http.post(this.baseUrl + '/auth/verifyemail', emailModel)
-  }
-
-  register(userModel: UserModel): Observable<UserResponse> {
-    return this.http.post<UserResponse>(this.baseUrl + '/auth/register', userModel)
-      .pipe(
-        tap((user: UserResponse) => console.log(user))
-      );
-  }
-
-  login(userModel: UserModel): Observable<UserResponse> {
-    return this.http.post<UserResponse>(this.baseUrl + '/auth/login', userModel)
-      .pipe(
-        tap((user: UserResponse) => console.log(user))
-      );
-  }
 
   getSupplierByName(name: String): Observable<SupplierResponse> {
-    return this.http.get<SupplierResponse>(this.baseUrl + '/products/' + name)
+    return this.http.get<SupplierResponse>(this.baseUrl + '/sales/' + name)
   }
 }
 

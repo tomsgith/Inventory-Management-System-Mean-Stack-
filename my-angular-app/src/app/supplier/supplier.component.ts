@@ -34,23 +34,6 @@ export class SupplierComponent implements OnInit {
   }
 
   onSearchClick() {
-
-  }
-
-  onSupplierSelected(supplier) {
-    this.isSupplierNew = false
-    this.supplierForm.setValue({
-      name: supplier.name,
-      address: supplier.address,
-      phone: supplier.phone,
-      email: supplier.email,
-      type: supplier.type,
-      _id: supplier._id
-    })
-  }
-
-  onKey(event: any) {
-    this.supplierName = event.target.value
     this.dataService.getSupplierByName(this.supplierName)
       .subscribe(
         data => {

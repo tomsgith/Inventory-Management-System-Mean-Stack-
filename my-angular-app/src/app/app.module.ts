@@ -14,19 +14,18 @@ import { HomeComponent } from './home/home.component';
 import { SupplierComponent } from './supplier/supplier.component';
 
 const appRoutes: Routes = [
-  { path: 'sales', component: SalesformComponent, pathMatch: 'full' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UserComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'employee', component: EmployeeComponent },
-  { path: 'supplier', component: SupplierComponent }
+  { path: 'supplier', component: SupplierComponent },
+  { path: 'sale', component: SalesformComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
     SalesformComponent,
     ProductComponent,
     HomeComponent,
