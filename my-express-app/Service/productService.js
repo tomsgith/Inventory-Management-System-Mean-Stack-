@@ -19,8 +19,8 @@ class ProductService {
         return from(Product.find(queryObj));
     }
 
-    update(queryObj, updateObj) {
-        return from(Product.updateOne(queryObj, updateObj));
+    update(queryObj,updateObj) {
+        return from(Product.updateOne(queryObj,updateObj));
     }
     
 

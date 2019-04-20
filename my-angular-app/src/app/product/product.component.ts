@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  products;
+  constructor() { 
 
-  constructor() { }
+
+
+  }
 
   ngOnInit() {
+    products:[{name:"elsa", description:"bls nls nls"},{name:"elsa", description:"bls nls nls"}]
   }
 
 }

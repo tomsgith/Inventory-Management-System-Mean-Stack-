@@ -30,6 +30,22 @@ router.get('/:id', (req, res,next) => {
        
 });
 
+router.put('/:id',(req,res,next)=>{
+    const id= req.param.id;
+    product = req.body;
+    productService.update(id,product)
+    .subscribe(
+       
+        (data)=> res.status(200).json(data),
+        (err)=> next(err),null);
+   
+});
+
+
+
+
+
+
 
 
 
