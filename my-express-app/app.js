@@ -6,7 +6,6 @@ const authRoute = require('./Routes/AuthRoute')
 const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
 
-
 //init
 const app = express()
 
