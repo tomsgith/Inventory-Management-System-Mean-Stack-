@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService, SupplierModel } from '../data.service';
 import { FormGroup } from '@angular/forms';
+import { SaleDataService } from '../salesform/data.service.sale';
 
 @Component({
   selector: 'app-supplier',
@@ -12,14 +13,14 @@ export class SupplierComponent implements OnInit {
   suppliers: [SupplierModel]
   singupForm: FormGroup
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private saleDataService: SaleDataService) { }
 
   ngOnInit() {
 
   }
 
   onSearchClick() {
-    this.dataService.getSupplierByName(this.supplierName)
+    this.saleDataService.getSupplierByName("")
       .subscribe(
         data => {
           this.suppliers = data.suppliers
