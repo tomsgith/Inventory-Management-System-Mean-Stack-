@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductComponent } from './product/product.component';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent, pathMatch: 'full' }
@@ -11,7 +12,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
