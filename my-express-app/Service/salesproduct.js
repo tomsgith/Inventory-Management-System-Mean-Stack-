@@ -1,11 +1,12 @@
 const {from} = require('rxjs');
 let Product = require('../models/product');
+
 class ProductService {
     constructor() {
 
     }
 
-    add(productObj) {        
+    add(productObj) {
         let newProduct = new Product(productObj);
         return newProduct.save();
 
@@ -22,7 +23,6 @@ class ProductService {
     update(queryObj, updateObj) {
         return from(Product.updateOne(queryObj, updateObj));
     }
-    
 
     delete(queryObj) {}
 }

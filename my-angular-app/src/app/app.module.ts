@@ -6,12 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './product/product.component';
+import { SalesformComponent } from './salesform/salesform.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HomeComponent } from './home/home.component';
-import { UserComponent } from './user/user.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { UserComponent } from './user/user.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
+  { path: 'sales', component: SalesformComponent, pathMatch: 'full' }
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UserComponent },
   { path: 'home', component: HomeComponent },
@@ -22,6 +24,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    ProductComponent,
+    SalesformComponent
     ProductComponent,
     HomeComponent,
     UserComponent,
