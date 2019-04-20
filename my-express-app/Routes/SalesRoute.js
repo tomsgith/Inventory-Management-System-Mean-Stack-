@@ -43,7 +43,7 @@ router.post('/', function (req, res, next) {
 
 
             //usrls for sale
-            router.get('/sales', function (req, res, next) {
+            router.get('/sale', function (req, res, next) {
                 const queryObj = {};
                 productSale.getAll(queryObj).subscribe(
                 (users) => res.status(200).json(users),
@@ -53,18 +53,24 @@ router.post('/', function (req, res, next) {
     
                 });
                 router.post('/sale', function (req, res, next) {
-                    console.log("soerking")
-                    const quantity=0;
+                    console.log("worrking");
+                   //console.log(req.body)
+                    let quantity=0;
                     
-                    productService.getOne(req.body._id)
-                    .then((product)=>quantity=product.quantity)
-                    .catch((err)=>console.log(err))
+                    productService.getOne({"_id":req.body._id})
+                    .subscribe((product)=>
+                    {
+                      quantity=product.quantity
+                      console.log("worrking22222");
+                      console.log(quantity);
+                    },(err)=>console.log(err))
+                   
                     
                     const updateObj = {"quantity":quantity-req.body.quantity};
                     const queryObj={"_id":req.body._id}
                     productService.update(queryObj,updateObj)
-                    .then(()=>console.log("succes"))
-                    .catch(()=>console.log("cant update"))
+                    .subscribe(()=>console.log("succes"),()=>console.log("cant update"))
+                    
 
                     productSale.add(req.body)
                       .then(() => res.status(200).json({

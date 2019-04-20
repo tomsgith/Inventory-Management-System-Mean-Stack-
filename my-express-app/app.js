@@ -2,12 +2,11 @@
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
-const MongoClient = require('mongodb').MongoClient
 const authRoute = require('./Routes/AuthRoute')
 const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
-
-
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/inventory', { useNewUrlParser: true });
 //init
 const app = express()
 
@@ -15,9 +14,6 @@ const app = express()
 app.use(express.json());
 app.use(cors())
 app.use(helmet())
-
-//middleware 
-
 
 //routing
 app.use('/api/auth', authRoute)
