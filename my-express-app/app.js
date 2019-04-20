@@ -5,7 +5,8 @@ const helmet = require('helmet')
 const authRoute = require('./Routes/AuthRoute')
 const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
-
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/inventory', { useNewUrlParser: true });
 //init
 const app = express()
 

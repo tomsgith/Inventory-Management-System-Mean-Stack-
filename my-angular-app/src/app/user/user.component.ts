@@ -51,12 +51,18 @@ export class UserComponent {
   }
 
   onSignUp(): void {
+    console.log(">>>", this.singupForm)
     this.dataService.register(this.singupForm.value)
       .subscribe((res) => {
-        if (res.auth)
+        if (res.hasError)
+          this.alertMessage = {
+            hasError: true,
+            message: res.message
+          }
+        else {
           localStorage.setItem("UserToken", res.token)
-        else
-          console.log(res.message)
+          this.router.navigate(['home'])
+        }
       })
   }
 

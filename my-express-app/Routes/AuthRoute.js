@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
         userModel.hashPassword()
         UserModel.findOne({ email: userModel.email }, function (err, user) {
             if (user) {
-                res.status(409).send({ hasError: true, message: "User already exits" });
+                res.status(200).send({ hasError: true, message: "User already exits" });
                 res.end()
             } else {
                 userModel.save(function (err, _userModel) {

@@ -68,6 +68,9 @@
             <button type="submit" class="btn btn-primary btn-block" [disabled]="!singupForm.valid"> Register
             </button>
           </div>
+          <div *ngIf="alertMessage.hasError" class="alertbox">
+            {{ alertMessage.message }}
+          </div>
           <div class="rightText" style="font-size: 12px; color: gray">
             Already have an account? <p style="color: blue" (click)="switchFormState()">Sign in</p>
           </div>
