@@ -7,7 +7,7 @@ const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
 const supplierRoute = require('./Routes/SupplierRoute')
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/inventory', { useNewUrlParser: true });
+
 //init
 const app = express()
 

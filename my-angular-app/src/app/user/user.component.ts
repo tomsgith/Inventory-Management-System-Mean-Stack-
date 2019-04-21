@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { DataService } from '../data.service';
+import { UserDataService } from '../user.data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class UserComponent {
     message: ""
   };
 
-  constructor(private formBuilder: FormBuilder, private dataService: DataService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
       'firstname': ['surafel nigussie', [Validators.required]],
       'lastname': ['asfaw', Validators.required],
@@ -51,7 +51,7 @@ export class UserComponent {
   }
 
   onSignUp(): void {
-    this.dataService.register(this.singupForm.value)
+    this.userDataService.register(this.singupForm.value)
       .subscribe((res) => {
         if (res.hasError)
           this.alertMessage = {
@@ -66,7 +66,7 @@ export class UserComponent {
   }
 
   onSignIn(): void {
-    this.dataService.login(this.signinForm.value)
+    this.userDataService.login(this.signinForm.value)
       .subscribe((res) => {
         if (res.hasError) {
           this.alertMessage = {
@@ -80,17 +80,16 @@ export class UserComponent {
   }
 
   asyncEmailValidator(control: FormControl): Promise<any> | Observable<any> {
-    const promise = new Promise<any>(
-      (resolve, reject) => {
-        this.dataService.verifyemail({ "email": control.value }).subscribe((res) => {
-          console.log("SignUpResponse: ", res);
-          // if (control.value === 'sunigussie@mum.edu') {
-          //   resolve({ 'invalid': true });
-          // } else {
-          //   resolve(null);
-          // }
-        })
-      }
+    const promise = new Promise<any>((resolve, reject) => {
+      this.userDataService.verifyemail({ "email": control.value }).subscribe((res) => {
+        console.log("SignUpResponse: ", res);
+        // if (control.value === 'sunigussie@mum.edu') {
+        //   resolve({ 'invalid': true });
+        // } else {
+        //   resolve(null);
+        // }
+      })
+    }
     );
     return promise;
   }

@@ -24,6 +24,10 @@
 
 <div class="navMarginTop">
 <a routerLink="/product/new" class="btn btn-primary">New Product</a>
+<div>
+  <label for="search">Search Product</label>
+  <input  id="search"type="search" class="form-control" placeholder="Search product"> 
+</div>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -32,6 +36,7 @@
     <th scope="col">Brand</th>
     <th scope="col">Descr</th>
     <th scope="col">Quantity</th>
+    <th scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -41,6 +46,7 @@
     <td>{{ product.brand }}</td>
     <td>{{ product.description}}</td>   
     <td>{{ product.quantity}}</td>
+    <td><a routerLink="/product/edit" class="btn btn-primary">Edit</a></td>
    
     
 

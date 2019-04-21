@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, SupplierModel } from '../data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SupplierDataService, SupplierModel } from '../supplier.data.service';
 
 @Component({
   selector: 'app-supplier',
@@ -13,7 +13,7 @@ export class SupplierComponent implements OnInit {
   supplierForm: FormGroup
   isSupplierNew: boolean = true
 
-  constructor(private dataService: DataService, private formBuilder: FormBuilder) {
+  constructor(private supplierDataService: SupplierDataService, private formBuilder: FormBuilder) {
     this.supplierForm = formBuilder.group({
       'name': ['surafel nigussie', [Validators.required]],
       'address': ['asfaw', Validators.required],
@@ -34,9 +34,40 @@ export class SupplierComponent implements OnInit {
   }
 
   onSearchClick() {
-    this.dataService.getSupplierByName(this.supplierName)
+
+  }
+
+  onSupplierSelected(supplier) {
+    this.isSupplierNew = false
+    this.supplierForm.setValue({
+      name: supplier.name,
+      address: supplier.address,
+      phone: supplier.phone,
+      email: supplier.email,
+      type: supplier.type,
+      _id: supplier._id
+    })
+  }
+
+  onResetForm() {
+    this.isSupplierNew = true
+    this.supplierForm.setValue({
+      name: '',
+      address: '',
+      phone: '',
+      email: '',
+      type: '',
+      _id: 0
+    })
+  }
+
+  onKey(event: any) {
+    this.supplierName = event.target.value
+    console.log(this.supplierName)
+    this.supplierDataService.getSupplierByName(this.supplierName)
       .subscribe(
         data => {
+          console.log(data.suppliers)
           this.suppliers = data.suppliers
         },
         err => console.error(err),
@@ -45,8 +76,6 @@ export class SupplierComponent implements OnInit {
   }
 
   onSaveSupplier(): void {
-
     console.log(this.supplierForm.value)
-
   }
 }
