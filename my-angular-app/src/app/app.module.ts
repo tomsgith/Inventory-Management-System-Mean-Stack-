@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { ProformComponent } from './product/proform/proform.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     UserComponent,
     EmployeeComponent,
     SupplierComponent,
-    ProformComponent
+    ProformComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
