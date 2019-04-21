@@ -21,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'product/new', component: ProformComponent},
+  { path: 'product/edit', component: EditProductComponent},
   { path: 'employee', component: EmployeeComponent },
   { path: 'supplier', component: SupplierComponent },
   { path: 'sale', component: SalesformComponent }

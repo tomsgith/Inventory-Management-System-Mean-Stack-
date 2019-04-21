@@ -60,7 +60,7 @@ router.put('/:id',(req,res,next)=>{
 router.delete('/:id',(req,res,next)=>{
     const id = req.param.id;
     productService.delete(id).subscribe(
-        (data)=> {console.log('product deleted successfully')},
+        (data)=> {res.status(200).json({message:'product deleted successfully'})},
         (err) => next(err), null);
 });
 
