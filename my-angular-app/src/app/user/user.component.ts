@@ -102,5 +102,5 @@ export class UserComponent {
 
 export interface Alert {
   hasError: Boolean,
-  message: string
+  message: String
 }

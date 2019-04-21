@@ -14,6 +14,10 @@ export class SupplierDataService {
 
   }
 
+  deleteSupplier(supplier: SupplierModel): Observable<ErrorModel> {
+    return this.http.delete<ErrorModel>(this.baseUrl + '/supplier/' + supplier._id)
+  }
+
   updateSupplier(supplier: SupplierModel): Observable<ErrorModel> {
     return this.http.patch<ErrorModel>(this.baseUrl + '/supplier/', supplier)
   }
@@ -32,17 +36,18 @@ export interface SupplierModel {
   address: String,
   phone: String,
   email: String,
-  type: String
+  type: String,
+  _id: String
 }
 
 export interface SupplierResponse {
   suppliers: [SupplierModel],
   hasError: false,
-  message: "Success"
+  message: String
 }
 
 export interface ASupplierResponse {
   suppliers: SupplierModel,
   hasError: false,
-  message: "Success"
+  message: String
 }

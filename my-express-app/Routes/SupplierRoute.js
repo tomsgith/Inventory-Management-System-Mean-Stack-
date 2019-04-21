@@ -44,7 +44,7 @@ router.patch("/", async (req, res) => {
         let supplierModel = new SupplierModel(req.body)
         SupplierModel.updateOne({ _id: supplierModel._id }, supplierModel, function (err, supplier) {
             if (supplier) {
-                res.status(200).send({ hasError: false, message: "Supplier update successfully" });
+                res.status(200).send({ hasError: false, message: "Supplier updated successfully" });
                 res.end()
             } else {
                 res.status(200).send({ hasError: true, message: "Supplier not found or doesn't exist" });
@@ -78,10 +78,10 @@ router.delete("/:id", async (req, res) => {
     try {
         SupplierModel.deleteOne({ _id: req.params.id }, function (err, suppliers) {
             if (suppliers) {
-                res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
+                res.status(200).send({ hasError: false, message: "Supplier deleted succesfully" });
                 res.end()
             } else {
-                res.status(200).send({ hasError: true, message: "No supplier found." });
+                res.status(200).send({ hasError: true, message: "No supplier found" });
                 res.end()
             }
         });
