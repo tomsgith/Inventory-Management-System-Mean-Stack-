@@ -8,22 +8,29 @@ import { SaleDataService } from './data.service.sale';
   templateUrl: './salesform.component.html',
   styleUrls: ['./salesform.component.css']
 })
-export class SalesformComponent  {
+export class SalesformComponent implements OnInit  {
+  
   categories$;
   products$;
 
-constructor(private saleService:SaleDataService) {
-  saleService.getAllProducts().subscribe((data)=>{this.products$=data ;console.log(this.products$);});
+constructor(private saleService:SaleDataService,private catagoryservice:CategoryService) {
+  saleService.getAllProducts().subscribe((data)=>{
+    this.products$=data ;
+    //console.log(this.products$);
+  });
+  catagoryservice.getcatagories().subscribe((data)=>{
+    this.categories$=data ;
+    //console.log(this.categories$);
+  });
    
+  }
+  ngOnInit(): void {
+    console.log(this.categories$)
+    console.log(this.products$)
   }
 
 
 
-//category service working
-  // constructor(private catagoryservice:CategoryService) {
-  //   catagoryservice.getcatagories().subscribe((data)=>{this.categories$=data ;console.log(this.categories$);});
-   
-  // }
 
 
 }

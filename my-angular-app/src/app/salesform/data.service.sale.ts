@@ -27,6 +27,7 @@ export interface product {
     quantity:Number,
     type:String,
     price:Number,
+    image:String,
     username:String,
     created_at: Date,
     updated_at: Date
