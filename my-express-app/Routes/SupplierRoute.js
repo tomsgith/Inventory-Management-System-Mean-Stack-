@@ -20,7 +20,6 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        console.log(req.body)
         let supplierModel = new SupplierModel(req.body)
         SupplierModel.findOne({ name: supplierModel.name }, function (err, supplier) {
             if (supplier) {
@@ -40,10 +39,27 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.patch("/", async (req, res) => {
+    try {
+        let supplierModel = new SupplierModel(req.body)
+        SupplierModel.updateOne({ _id: supplierModel._id }, supplierModel, function (err, supplier) {
+            if (supplier) {
+                res.status(200).send({ hasError: false, message: "Supplier updated successfully" });
+                res.end()
+            } else {
+                res.status(200).send({ hasError: true, message: "Supplier not found or doesn't exist" });
+                res.end()
+            }
+        });
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
 router.get("/:name", async (req, res) => {
     try {
-        console.log(req.params.name)
-        SupplierModel.find({ name: { $regex: req.params.name } }, function (err, suppliers) {
+        SupplierModel.find({ name: { $regex: new RegExp(req.params.name, "i") } }, function (err, suppliers) {
             if (suppliers) {
                 res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
                 res.end()
@@ -60,13 +76,12 @@ router.get("/:name", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        console.log(req.params.id)
         SupplierModel.deleteOne({ _id: req.params.id }, function (err, suppliers) {
             if (suppliers) {
-                res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
+                res.status(200).send({ hasError: false, message: "Supplier deleted succesfully" });
                 res.end()
             } else {
-                res.status(200).send({ hasError: true, message: "No supplier found." });
+                res.status(200).send({ hasError: true, message: "No supplier found" });
                 res.end()
             }
         });

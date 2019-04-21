@@ -1,40 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
+import { Alert } from '../user/user.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SupplierModalContent } from '../modal/supplier-modal/supplier-modal.component';
 
 @Component({
   selector: 'app-supplier',
   templateUrl: './supplier.component.html',
   styleUrls: ['./supplier.component.css']
 })
-export class SupplierComponent implements OnInit {
+export class SupplierComponent {
   supplierName = ''
   suppliers: [SupplierModel]
   supplierForm: FormGroup
-  isSupplierNew: boolean = true
+  isSupplierNew = true
+  alertMessage: Alert
+  showAlert = false
 
-  constructor(private supplierDataService: SupplierDataService, private formBuilder: FormBuilder) {
+  constructor(private modalService: NgbModal, private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
-      'name': ['surafel nigussie', [Validators.required]],
-      'address': ['asfaw', Validators.required],
-      'phone': ['12345', Validators.required],
-      'email': ['12345', Validators.required],
-      'type': ['12345', Validators.required],
-      '_id': [0]
+      'name': ['', [Validators.required]],
+      'address': ['', Validators.required],
+      'phone': ['', Validators.required],
+      'email': ['', Validators.required],
+      'type': ['', Validators.required],
+      '_id': 0
     });
 
     this.supplierForm.valueChanges
       .subscribe(
         (data: any) => console.log(data)
       );
-  }
-
-  ngOnInit() {
-
-  }
-
-  onSearchClick() {
-
   }
 
   onSupplierSelected(supplier) {
@@ -57,17 +54,21 @@ export class SupplierComponent implements OnInit {
       phone: '',
       email: '',
       type: '',
-      _id: 0
+      _id: '0'
     })
+    this.supplierName = ''
+    this.getSupplierByName('')
+    this.alertMessage = null
   }
 
   onKey(event: any) {
-    this.supplierName = event.target.value
-    console.log(this.supplierName)
-    this.supplierDataService.getSupplierByName(this.supplierName)
+    this.getSupplierByName(event.target.value)
+  }
+
+  getSupplierByName(supplierName: String) {
+    this.supplierDataService.getSupplierByName(supplierName)
       .subscribe(
         data => {
-          console.log(data.suppliers)
           this.suppliers = data.suppliers
         },
         err => console.error(err),
@@ -76,6 +77,58 @@ export class SupplierComponent implements OnInit {
   }
 
   onSaveSupplier(): void {
-    console.log(this.supplierForm.value)
+    if (this.supplierForm.value._id != 0) {
+      this.supplierDataService.updateSupplier(this.supplierForm.value)
+        .subscribe(
+          data => {
+            this.supplierName = ''
+            this.getSupplierByName('')
+            this.alertMessage = {
+              hasError: data.hasError,
+              message: data.message
+            }
+          },
+          err => console.error(err),
+          () => console.log('Done UpdateSupplier')
+        );
+    } else {
+      const formValues = this.supplierForm.value;
+      delete formValues._id
+      this.supplierDataService.saveSupplier(this.supplierForm.value)
+        .subscribe(
+          data => {
+            this.alertMessage = {
+              hasError: data.hasError,
+              message: data.message
+            }
+          },
+          err => console.error(err),
+          () => console.log('Done SaveSupplier')
+        );
+    }
+  }
+
+  deleteSupplier(supplier: SupplierModel) {
+    const modalRef = this.modalService.open(SupplierModalContent, { centered: true });
+    modalRef.componentInstance.name = supplier.name;
+    modalRef.result
+      .then(response => {
+        if (response) {
+          this.supplierDataService.deleteSupplier(supplier)
+            .subscribe(
+              data => {
+                this.supplierName = ''
+                this.getSupplierByName('')
+                this.alertMessage = {
+                  hasError: data.hasError,
+                  message: data.message
+                }
+              },
+              err => console.error(err),
+              () => console.log('Done DeleteSupplier')
+            );
+        }
+      })
+      .catch(console.log)
   }
 }

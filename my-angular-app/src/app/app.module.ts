@@ -14,14 +14,16 @@ import { HomeComponent } from './home/home.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { ProformComponent } from './product/proform/proform.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { SupplierModalContent } from './modal/supplier-modal/supplier-modal.component';
+import { NavigationComponent } from './nav/navigation.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UserComponent },
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'product/new', component: ProformComponent},
-  { path: 'product/edit', component: EditProductComponent},
+  { path: 'product/new', component: ProformComponent },
+  { path: 'product/edit', component: EditProductComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'supplier', component: SupplierComponent },
   { path: 'sale', component: SalesformComponent }
@@ -37,7 +39,12 @@ const appRoutes: Routes = [
     EmployeeComponent,
     SupplierComponent,
     ProformComponent,
-    EditProductComponent
+    EditProductComponent,
+    SupplierModalContent,
+    NavigationComponent
+  ],
+  entryComponents: [
+    SupplierModalContent
   ],
   imports: [
     BrowserModule,
