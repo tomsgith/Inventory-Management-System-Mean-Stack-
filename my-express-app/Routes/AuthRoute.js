@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const config = require('../config');
-const UserModel = require('../models/users');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const config = require('../config')
+const UserModel = require('../models/users')
 
 router.post("/register", async (req, res) => {
     try {
@@ -60,6 +60,20 @@ router.post('/login', async function (req, res) {
                 res.end()
             }
         })
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
+router.post('/verifyToken', async function (req, res) {
+    try {
+        await jwt.verify(req.body.token, config.secret, function (err, decoded) {
+            if (err)
+                return resp.status(200).send(false)
+            else
+                return resp.status(200).send(true)
+        });
     } catch (e) {
         res.status(500).send(e);
         res.end()

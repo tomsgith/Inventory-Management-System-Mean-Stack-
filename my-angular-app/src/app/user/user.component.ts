@@ -59,7 +59,7 @@ export class UserComponent {
             message: res.message
           }
         else {
-          localStorage.setItem("UserToken", res.token)
+          localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
         }
       })
@@ -74,6 +74,7 @@ export class UserComponent {
             message: res.message
           }
         } else {
+          localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
         }
       })

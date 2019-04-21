@@ -6,7 +6,8 @@ const authRoute = require('./Routes/AuthRoute')
 const productSales = require('./Routes/ProductRoute')
 const salesRoute = require('./Routes/SalesRoute')
 const supplierRoute = require('./Routes/SupplierRoute')
-const mongoose = require('mongoose');
+const config = require('./config')
+const jwt = require('jsonwebtoken')
 
 //init
 const app = express()
@@ -16,6 +17,25 @@ app.use(express.json());
 app.use(cors())
 app.use(helmet())
 
+//middleware
+app.use('*', async function (req, resp, next) {
+    if (req.originalUrl.includes('/api/auth'))
+        return next()
+    else {
+        const token = req.headers.authorization
+        if (!token) {
+            return resp.status(200).send({ auth: false, message: 'No token provided' });
+        } else {
+            await jwt.verify(token, config.secret, function (err, decoded) {
+                if (err) {
+                    return resp.status(200).send({ auth: false, message: 'Unauthorized' })
+                }
+                return next()
+            });
+        }
+    }
+})
+
 //routing
 app.use('/api/auth', authRoute)
 app.use('/api/sales', salesRoute)
@@ -24,13 +44,8 @@ app.use('/api/supplier', supplierRoute)
 
 //error handling 
 app.use(function (err, req, resp, next) {
-    if (err === 400) {
-        resp.status(400).send('Bad Request.')
-        resp.end()
-    }
-    else {
-        resp.status(500).send('New Internal Server Error.')
-        resp.end()
+    if (err) {
+        console.log(err)
     }
 })
 
