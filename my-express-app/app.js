@@ -19,7 +19,7 @@ app.use(helmet())
 //routing
 app.use('/api/auth', authRoute)
 app.use('/api/sales', salesRoute)
-app.use('/api/products', productSales)
+app.use('/api/product', productSales)
 app.use('/api/supplier', supplierRoute)
 
 //error handling 

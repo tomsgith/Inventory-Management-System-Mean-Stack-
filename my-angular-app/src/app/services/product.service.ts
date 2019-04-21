@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
-import {Observable} from 'rxjs'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
 
 
 @Injectable({
@@ -11,16 +11,30 @@ export class ProductService {
   constructor(public http: HttpClient) { }
 
 
-  getProductsService(): Observable<any>{
-    return this.http.get(this.url +'/products');
+  getProductsService(): Observable<any> {
+    return this.http.get(this.url + '/product');
   }
 
-  editProduct(id):Observable<any>{
-    return this.http.patch(this.url +'/edit/',id);
+  editProduct(product: ProductModel): Observable<ProductModel> {
+    return this.http.patch<ProductModel>(this.url + '/edit/', product);
   }
 
-  addProduct(product):Observable<any>{
-    return this.http.post(this.url,product)
+  addProduct(product): Observable<any> {
+    return this.http.post(this.url, product)
   }
 
+
+}
+
+export interface ProductModel {
+  name: String,
+  brand: String,
+  description: String,
+  quantity: Number,
+  type: String,
+  price: Number,
+  image: String,
+  username: String,
+  created_at: Date,
+  updated_at: Date
 }
