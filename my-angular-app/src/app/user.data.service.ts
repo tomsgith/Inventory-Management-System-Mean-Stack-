@@ -6,7 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class UserDataService {
   baseUrl: string = "http://localhost:3000/api"
 
   constructor(private http: HttpClient) {
@@ -29,10 +29,6 @@ export class DataService {
       .pipe(
         tap((user: UserResponse) => console.log(user))
       );
-  }
-
-  getSupplierByName(name: String): Observable<SupplierResponse> {
-    return this.http.get<SupplierResponse>(this.baseUrl + '/products/' + name)
   }
 }
 

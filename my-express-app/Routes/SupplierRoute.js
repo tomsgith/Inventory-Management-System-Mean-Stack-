@@ -18,9 +18,50 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/", async (req, res) => {
+    try {
+        console.log(req.body)
+        let supplierModel = new SupplierModel(req.body)
+        SupplierModel.findOne({ name: supplierModel.name }, function (err, supplier) {
+            if (supplier) {
+                res.status(200).send({ hasError: true, message: "Supplier already exits" });
+                res.end()
+            } else {
+                supplierModel.save(function (err, _supplierModel) {
+                    if (err) return console.error(err);
+                    res.status(200).send({ supplier: _supplierModel, hasError: false, message: "Supplier registered successfully" });
+                    res.end()
+                });
+            }
+        });
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
 router.get("/:name", async (req, res) => {
     try {
-        SupplierModel.find({name: { $regex: req.params.name }}, function (err, suppliers) {
+        console.log(req.params.name)
+        SupplierModel.find({ name: { $regex: req.params.name } }, function (err, suppliers) {
+            if (suppliers) {
+                res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
+                res.end()
+            } else {
+                res.status(200).send({ hasError: true, message: "No supplier found." });
+                res.end()
+            }
+        });
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
+router.delete("/:id", async (req, res) => {
+    try {
+        console.log(req.params.id)
+        SupplierModel.deleteOne({ _id: req.params.id }, function (err, suppliers) {
             if (suppliers) {
                 res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
                 res.end()

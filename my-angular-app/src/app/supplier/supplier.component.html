@@ -38,17 +38,19 @@
         </div>
       </form>
       <ul class="list-group mb-3">
-        <li *ngFor="let supplier of suppliers" (click)="onSupplierSelected(supplier)"
-          class="list-group-item d-flex justify-content-between lh-condensed">
+        <li *ngFor="let supplier of suppliers" class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">{{supplier.name}}</h6>
             <small class="text-muted">Category: {{supplier.type}}</small>
           </div>
           <span class="text-muted">
-            <i class="material-icons" style="vertical-align: middle">
+            <i class="material-icons"
+              style="vertical-align: middle; margin-right: 5px; color: #0069d9;  cursor: pointer"
+              (click)="onSupplierSelected(supplier)">
               create
             </i>
-            <i class="material-icons" style="vertical-align: middle; margin-right: 10px">
+            <i class="material-icons"
+              style="vertical-align: middle; margin-right: 10px; color: #d42f2f; cursor: pointer">
               delete_sweep
             </i>
           </span>
@@ -57,7 +59,11 @@
     </div>
 
     <div class="col-md-8">
-      <h4 class="mb-3">Supplier Information</h4>
+      <div class="">
+        <h4 class="mb-3">Supplier Information</h4>
+        <button class="btn btn-primary" style="float: right; position: relative;top: -10px;"
+          (click)="onResetForm()">Reset</button>
+      </div>
       <form class="needs-validation" novalidate="" [formGroup]="supplierForm" (ngSubmit)="onSaveSupplier()">
 
         <div class="mb-3">
@@ -97,8 +103,10 @@
 
         <hr class="mb-4">
 
-        <button *ngIf="!isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!supplierForm.valid">Update</button>
-        <button *ngIf="isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!supplierForm.valid">Save</button>
+        <button *ngIf="!isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit"
+          [disabled]="!supplierForm.valid">Update</button>
+        <button *ngIf="isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit"
+          [disabled]="!supplierForm.valid">Save</button>
       </form>
     </div>
 

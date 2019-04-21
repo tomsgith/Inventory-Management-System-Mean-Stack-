@@ -6,13 +6,14 @@ import { SaleDataService } from './data.service.sale';
   templateUrl: './salesform.component.html',
   styleUrls: ['./salesform.component.css']
 })
-export class SalesformComponent implements OnInit {
+export class SalesformComponent  {
+  imageurl:string;
+  products$;
 
-  constructor(private saleService:SaleDataService) { }
-
-  ngOnInit() {
-    console.log(">>>> hello am working")
-    console.log(this.saleService.getAllProducts)
+  constructor(private saleService:SaleDataService) {
+    this.products$=saleService.getAllProducts();
+    this.imageurl="./image/pro.png";
   }
+
 
 }
