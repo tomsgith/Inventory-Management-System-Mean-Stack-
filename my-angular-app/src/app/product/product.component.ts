@@ -14,16 +14,16 @@ export class ProductComponent implements OnInit {
   }
 
   getProduct(){
-    console.log(this.productService.getProductsService());
+ 
     this.productService.getProductsService().subscribe((data)=>{
-      console.log(data)
+     
       this.products= data;
     });
 
   }
 
   ngOnInit() {
-    this.products=[{name:"elsa", description:"bls nls nls",brand:"bls nls nls",quantity:"bls nls nls"}];
+  
   }
 
 }
