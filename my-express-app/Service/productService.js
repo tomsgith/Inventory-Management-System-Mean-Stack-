@@ -21,10 +21,12 @@ class ProductService {
 
     update(queryObj,updateObj) {
         return from(Product.updateOne(queryObj,updateObj));
-    }
-    
+    }   
 
-    delete(queryObj) {}
+    delete(queryObj) {
+      return from(Product.findByIdAndDelete(queryObj))
+
+    }
 }
 
 module.exports = ProductService;
