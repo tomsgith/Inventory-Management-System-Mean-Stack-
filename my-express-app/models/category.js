@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
 
 const CategorySchema = new mongoose.Schema({
     name: String,  

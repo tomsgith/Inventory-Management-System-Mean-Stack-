@@ -22,7 +22,7 @@ export class UserComponent {
   isLogin: boolean = true;
   alerts: Array<AlertModel> = new Array();
   staticAlertClosed = false;
-
+ 
   constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
       'firstname': ['surafel nigussie', [Validators.required]],
@@ -36,11 +36,11 @@ export class UserComponent {
     });
 
     this.signinForm = formBuilder.group({
-      'email': ['email@www.com', [
+      'email': ['sunigussie@mum.edu', [
         Validators.required,
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
       ]],
-      'password': ['password', Validators.required]
+      'password': ['12345', Validators.required]
     });
 
     this.singupForm.valueChanges

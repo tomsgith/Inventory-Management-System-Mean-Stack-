@@ -8,6 +8,7 @@ const salesRoute = require('./Routes/SalesRoute')
 const supplierRoute = require('./Routes/SupplierRoute')
 const config = require('./config')
 const jwt = require('jsonwebtoken')
+const DatabasConnection = require('./models/database')
 
 //init
 const app = express()
@@ -16,6 +17,8 @@ const app = express()
 app.use(express.json());
 app.use(cors())
 app.use(helmet())
+
+DatabasConnection._connect()
 
 //middleware
 app.use('*', async function (req, resp, next) {

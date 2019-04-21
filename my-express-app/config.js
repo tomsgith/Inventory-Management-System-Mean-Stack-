@@ -1,3 +1,5 @@
 module.exports = {
-    'secret': 'supersecret'
+    'secret': 'supersecret',
+    'username': 'Asfaw',
+    'password': 'Foundmongodb1'
 };

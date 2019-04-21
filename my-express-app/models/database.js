@@ -1,13 +1,12 @@
-let mongoose = require('mongoose');
-const server = '127.0.0.1:27017';
-const database = 'inventory';
+const mongoose = require('mongoose');
+const config = require('../config')
 
-class Database {
+class DatabasConnection {
     constructor() {
         this._connect()
     }
     _connect() {
-        mongoose.connect(`mongodb://${server}/${database}`)
+        mongoose.connect(`mongodb+srv://${config.username}:${config.password}@cluster0-jbxu8.mongodb.net/inventory?retryWrites=true`, { useNewUrlParser: true })
             .then(() => {
                 console.log('Database connection successful')
             })
@@ -17,4 +16,4 @@ class Database {
     }
 }
 
-module.exports = new Database()
+module.exports = new DatabasConnection()
