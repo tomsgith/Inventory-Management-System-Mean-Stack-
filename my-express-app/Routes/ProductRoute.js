@@ -38,7 +38,7 @@ router.get('/category/category', (req, res, next) => {
         (err)=>next(err),null);
                     
 });
-
+    
 router.post('/category', function (req, res, next) {
 
     categoryService.add(req.body)

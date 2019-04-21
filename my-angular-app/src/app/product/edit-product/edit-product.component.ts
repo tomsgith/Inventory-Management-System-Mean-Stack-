@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProductComponent implements OnInit {
 
-  constructor() { }
+  constructor(public productService: ProductService) {
 
+  }
+  editProducts(id) {
+    this.productService.editProduct(id).subscribe(() => { }, () => { })
+  }
   ngOnInit() {
   }
 
