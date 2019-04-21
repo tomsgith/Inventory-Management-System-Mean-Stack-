@@ -17,6 +17,10 @@ export class SaleDataService {
   getSupplierByName(name: String): Observable<SupplierResponse> {
     return this.http.get<SupplierResponse>(this.baseUrl + '/sales/' + name)
   }
+
+  getAllProducts(): Observable<product> {
+    return this.http.get<product>(this.baseUrl + '/sales/')
+  }
 }
 
 export interface ErrorModel {
@@ -44,6 +48,17 @@ export interface SupplierModel {
   phone: String,
   email: String,
   type: String
+}
+export interface product {
+  name: String,
+    brand: String, 
+    description: String, 
+    quantity:Number,
+    type:String,
+    price:Number,
+    username:String,
+    created_at: Date,
+    updated_at: Date
 }
 
 export interface SupplierResponse {

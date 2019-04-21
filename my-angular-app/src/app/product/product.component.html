@@ -22,6 +22,8 @@
   </div>
 </nav>
 
+<div class="navMarginTop">
+<a routerLink="/product/new" class="btn btn-primary">New Product</a>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -38,10 +40,12 @@
     <td>{{ product.name}}</td>
     <td>{{ product.brand }}</td>
     <td>{{ product.description}}</td>   
-    <td>{{ product.quantity }}</td>
+    <td>{{ product.quantity}}</td>
    
     
 
   </tr>
+  
   </tbody>
 </table>
+</div>

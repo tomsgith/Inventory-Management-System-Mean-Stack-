@@ -2,6 +2,8 @@ const router = require('express').Router()
 
 const ProductService = require('../Service/productService');
 const productService = new ProductService();
+const CategoryService = require('../Service/category');
+const categoryService = new CategoryService();
 
 
 router.post('/', function (req, res, next) {
@@ -29,6 +31,22 @@ router.get('/:id', (req, res,next) => {
     null);
        
 });
+router.get('/category/category', (req, res, next) => {
+    const query ={};
+    categoryService.getAll(query).subscribe(
+        (data)=>res.status(200).json(data),
+        (err)=>next(err),null);
+                    
+});
+
+router.post('/category', function (req, res, next) {
+
+    categoryService.add(req.body)
+      .then(() => res.status(200).json({
+        success: true
+      }))
+      .catch((err) => next(err));
+  });
 
 router.put('/:id',(req,res,next)=>{
     const id= req.param.id;
