@@ -28,7 +28,11 @@
 <div class="navMarginTop">
 <div class="row">
   <div class="col-3">
-    Catagories
+    <ul class="list-group">
+      <li *ngFor="let c of categories$ | async" class="list-group-item">
+          {{c.name}}
+      </li>
+    </ul>
   </div>
   <div class="col">
       <div class="row">
