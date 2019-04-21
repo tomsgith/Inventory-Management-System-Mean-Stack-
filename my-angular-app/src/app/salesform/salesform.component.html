@@ -26,18 +26,30 @@
 </nav>
 
 <div class="navMarginTop">
-  <div 
-  *ngFor ="let p of products$  | async"
-  class="card" style="width: 15rem;">
-  
-  <img src="./image/pro.png" class="card-img-top" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{p.title}}</h5>
-    <p class="card-text">{{p.price | currency :'USD':true}}</p>
-    <a href="#" class="btn btn-primary">Add To Sale</a>
+<div class="row">
+  <div class="col-3">
+    Catagories
   </div>
- 
+  <div class="col">
+      <div class="row">
+          <ng-container *ngFor="let p of products$  | async ;let i=index">
+            <div class="col">
+              <div class="card" style="width: 15rem;">
+                <img [src]="p.image" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{p.name}}</h5>
+                  <p class="card-text">{{p.price | currency :'USD':true}}</p>
+                  <a href="#" class="btn btn-primary">Add To Sale</a>
+                </div>
+              </div>        
+            </div>
+            <div *ngIf="(i+1)%2===0" class="w-100"></div>
+          </ng-container>
+      
+        </div>
+  </div>
 </div>
+  
 
 
 

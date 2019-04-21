@@ -11,7 +11,7 @@ export class CategoryService {
 
   }
 
-  getcatagories(): Observable<category[]> {
+  getall(): Observable<category[]> {
     return this.http.get<category[]>(this.baseUrl + '/products/category/category')
   }
 }

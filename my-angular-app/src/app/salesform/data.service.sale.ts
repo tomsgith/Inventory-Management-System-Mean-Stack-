@@ -13,7 +13,7 @@ export class SaleDataService {
 
   }
 
-  getAllProducts(): Observable<product[]> {
+  getall(): Observable<product[]> {
     return this.http.get<product[]>(this.baseUrl + '/sales')
   }
 }
