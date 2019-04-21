@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { ErrorModel } from './user.data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class SupplierDataService {
 
   constructor(private http: HttpClient) {
 
+  }
+
+  updateSupplier(supplier: SupplierModel): Observable<ErrorModel> {
+    return this.http.patch<ErrorModel>(this.baseUrl + '/supplier/', supplier)
   }
 
   getSupplierByName(name: String): Observable<SupplierResponse> {

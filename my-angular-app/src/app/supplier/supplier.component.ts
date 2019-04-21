@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
+import { Alert } from '../user/user.component';
 
 @Component({
   selector: 'app-supplier',
@@ -11,29 +12,22 @@ export class SupplierComponent implements OnInit {
   supplierName = ''
   suppliers: [SupplierModel]
   supplierForm: FormGroup
-  isSupplierNew: boolean = true
+  isSupplierNew = true
+  alertMessage: Alert
+  showAlert = false
 
   constructor(private supplierDataService: SupplierDataService, private formBuilder: FormBuilder) {
     this.supplierForm = formBuilder.group({
-      'name': ['surafel nigussie', [Validators.required]],
-      'address': ['asfaw', Validators.required],
-      'phone': ['12345', Validators.required],
-      'email': ['12345', Validators.required],
-      'type': ['12345', Validators.required],
+      'name': ['', [Validators.required]],
+      'address': ['', Validators.required],
+      'phone': ['', Validators.required],
+      'email': ['', Validators.required],
+      'type': ['', Validators.required],
       '_id': [0]
     });
-
-    this.supplierForm.valueChanges
-      .subscribe(
-        (data: any) => console.log(data)
-      );
   }
 
   ngOnInit() {
-
-  }
-
-  onSearchClick() {
 
   }
 
@@ -63,11 +57,9 @@ export class SupplierComponent implements OnInit {
 
   onKey(event: any) {
     this.supplierName = event.target.value
-    console.log(this.supplierName)
     this.supplierDataService.getSupplierByName(this.supplierName)
       .subscribe(
         data => {
-          console.log(data.suppliers)
           this.suppliers = data.suppliers
         },
         err => console.error(err),
@@ -76,6 +68,21 @@ export class SupplierComponent implements OnInit {
   }
 
   onSaveSupplier(): void {
-    console.log(this.supplierForm.value)
+    this.supplierDataService.updateSupplier(this.supplierForm.value)
+      .subscribe(
+        data => {
+          console.log(data)
+          if (data.hasError) {
+            this.alertMessage = Object.assign({}, {
+              hasError: true,
+              message: data.message
+            })
+          } else {
+
+          }
+        },
+        err => console.error(err),
+        () => console.log('Done GetSupplier')
+      );
   }
 }

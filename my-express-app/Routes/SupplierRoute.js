@@ -20,7 +20,6 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        console.log(req.body)
         let supplierModel = new SupplierModel(req.body)
         SupplierModel.findOne({ name: supplierModel.name }, function (err, supplier) {
             if (supplier) {
@@ -32,6 +31,24 @@ router.post("/", async (req, res) => {
                     res.status(200).send({ supplier: _supplierModel, hasError: false, message: "Supplier registered successfully" });
                     res.end()
                 });
+            }
+        });
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
+router.patch("/", async (req, res) => {
+    try {
+        let supplierModel = new SupplierModel(req.body)
+        SupplierModel.updateOne({ _id: supplierModel._id }, supplierModel, function (err, supplier) {
+            if (supplier) {
+                res.status(200).send({ hasError: false, message: "Supplier update successfully" });
+                res.end()
+            } else {
+                res.status(200).send({ hasError: true, message: "Supplier not found or doesn't exist" });
+                res.end()
             }
         });
     } catch (e) {
