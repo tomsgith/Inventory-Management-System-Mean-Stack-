@@ -94,8 +94,17 @@
         </div>
 
         <div class="mb-3">
+          <label for="address">Type</label>
+          <input type="text" class="form-control" id="type" placeholder="Food,..."
+            [formControl]="supplierForm.get('type')">
+          <div class="invalid-feedback" *ngIf="!supplierForm.get('type').valid">
+            Please enter supplier type
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label for="address2">Address <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address" placeholder="Street, City, State"
+          <input type="text" class="form-control" id="type" placeholder="Food,..."
             [formControl]="supplierForm.get('address')">
         </div>
 

@@ -18,6 +18,10 @@ export class SupplierDataService {
     return this.http.patch<ErrorModel>(this.baseUrl + '/supplier/', supplier)
   }
 
+  saveSupplier(supplier: SupplierModel): Observable<ASupplierResponse> {
+    return this.http.post<ASupplierResponse>(this.baseUrl + '/supplier/', supplier)
+  }
+
   getSupplierByName(name: String): Observable<SupplierResponse> {
     return this.http.get<SupplierResponse>(this.baseUrl + '/supplier/' + name)
   }
@@ -33,6 +37,12 @@ export interface SupplierModel {
 
 export interface SupplierResponse {
   suppliers: [SupplierModel],
+  hasError: false,
+  message: "Success"
+}
+
+export interface ASupplierResponse {
+  suppliers: SupplierModel,
   hasError: false,
   message: "Success"
 }

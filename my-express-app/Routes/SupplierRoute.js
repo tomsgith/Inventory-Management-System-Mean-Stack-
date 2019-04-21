@@ -59,8 +59,7 @@ router.patch("/", async (req, res) => {
 
 router.get("/:name", async (req, res) => {
     try {
-        console.log(req.params.name)
-        SupplierModel.find({ name: { $regex: req.params.name } }, function (err, suppliers) {
+        SupplierModel.find({ name: { $regex: new RegExp(req.params.name, "i") } }, function (err, suppliers) {
             if (suppliers) {
                 res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });
                 res.end()
@@ -77,7 +76,6 @@ router.get("/:name", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        console.log(req.params.id)
         SupplierModel.deleteOne({ _id: req.params.id }, function (err, suppliers) {
             if (suppliers) {
                 res.status(200).send({ suppliers: suppliers, hasError: false, message: "Success" });

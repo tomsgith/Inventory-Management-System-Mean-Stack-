@@ -23,8 +23,13 @@ export class SupplierComponent implements OnInit {
       'phone': ['', Validators.required],
       'email': ['', Validators.required],
       'type': ['', Validators.required],
-      '_id': [0]
+      '_id': 0
     });
+
+    this.supplierForm.valueChanges
+      .subscribe(
+        (data: any) => console.log(data)
+      );
   }
 
   ngOnInit() {
@@ -51,7 +56,7 @@ export class SupplierComponent implements OnInit {
       phone: '',
       email: '',
       type: '',
-      _id: 0
+      _id: '0'
     })
     this.alertMessage = null
   }
@@ -69,23 +74,34 @@ export class SupplierComponent implements OnInit {
   }
 
   onSaveSupplier(): void {
-    this.supplierDataService.updateSupplier(this.supplierForm.value)
-      .subscribe(
-        data => {
-          if (data.hasError) {
+    if (this.supplierForm.value._id != 0) {
+      this.supplierDataService.updateSupplier(this.supplierForm.value)
+        .subscribe(
+          data => {
             this.alertMessage = {
-              hasError: true,
+              hasError: data.hasError,
               message: data.message
             }
-          } else {
+          },
+          err => console.error(err),
+          () => console.log('Done GetSupplier')
+        );
+    } else {
+      const x = this.supplierForm.value;
+      delete x._id  
+      console.log(x)
+      this.supplierDataService.saveSupplier(this.supplierForm.value)
+        .subscribe(
+          data => {
+            console.log(data)
             this.alertMessage = {
-              hasError: false,
+              hasError: data.hasError,
               message: data.message
             }
-          }
-        },
-        err => console.error(err),
-        () => console.log('Done GetSupplier')
-      );
+          },
+          err => console.error(err),
+          () => console.log('Done GetSupplier')
+        );
+    }
   }
 }

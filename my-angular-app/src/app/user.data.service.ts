@@ -33,7 +33,7 @@ export class UserDataService {
 }
 
 export interface ErrorModel {
-  hasError: string,
+  hasError: boolean,
   message: string
 }
 
