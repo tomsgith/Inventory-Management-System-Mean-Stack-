@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
 import { Alert } from '../user/user.component';
@@ -16,7 +16,7 @@ export class SupplierComponent implements OnInit {
   alertMessage: Alert
   showAlert = false
 
-  constructor(private supplierDataService: SupplierDataService, private formBuilder: FormBuilder) {
+  constructor(private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
       'name': ['', [Validators.required]],
       'address': ['', Validators.required],
@@ -53,6 +53,7 @@ export class SupplierComponent implements OnInit {
       type: '',
       _id: 0
     })
+    this.alertMessage = null
   }
 
   onKey(event: any) {
@@ -71,14 +72,16 @@ export class SupplierComponent implements OnInit {
     this.supplierDataService.updateSupplier(this.supplierForm.value)
       .subscribe(
         data => {
-          console.log(data)
           if (data.hasError) {
-            this.alertMessage = Object.assign({}, {
+            this.alertMessage = {
               hasError: true,
               message: data.message
-            })
+            }
           } else {
-
+            this.alertMessage = {
+              hasError: false,
+              message: data.message
+            }
           }
         },
         err => console.error(err),
