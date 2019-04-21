@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SaleDataService } from './data.service.sale';
 
 @Component({
   selector: 'app-salesform',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesformComponent implements OnInit {
 
-  constructor() { }
+  constructor(private saleService:SaleDataService) { }
 
   ngOnInit() {
+    console.log(">>>> hello am working")
+    console.log(this.saleService.getAllProducts)
   }
 
 }
