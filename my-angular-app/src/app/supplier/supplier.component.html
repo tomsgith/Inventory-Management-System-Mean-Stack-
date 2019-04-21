@@ -103,6 +103,10 @@
 
         <hr class="mb-4">
 
+        <div *ngIf="alertMessage" [ngClass]="{'alertbox': alertMessage.hasError, 'successbox': !alertMessage.hasError}">
+          {{ alertMessage.message }}
+        </div>
+
         <button *ngIf="!isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit"
           [disabled]="!supplierForm.valid">Update</button>
         <button *ngIf="isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit"

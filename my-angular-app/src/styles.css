@@ -29,6 +29,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: .25rem;
   }
 
+  .successbox {
+    color: #2a921e;
+    background-color: #d7f8e6;
+    border-color: #721c24;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
   .navMarginTop {
     padding: 80px;
 }
