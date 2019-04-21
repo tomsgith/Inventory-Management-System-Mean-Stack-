@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserDataService } from '../user.data.service';
+import { UserDataService, ErrorModel } from '../user.data.service';
 import { Router } from '@angular/router';
+
+export interface AlertModel {
+  type: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [NgbAlertConfig]
 })
 export class UserComponent {
   singupForm: FormGroup;
   signinForm: FormGroup;
   isLogin: boolean = true;
-  alertMessage: Alert = {
-    hasError: false,
-    message: ""
-  };
+  alerts: Array<AlertModel> = new Array();
+  staticAlertClosed = false;
 
   constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
@@ -53,11 +57,14 @@ export class UserComponent {
   onSignUp(): void {
     this.userDataService.register(this.singupForm.value)
       .subscribe((res) => {
-        if (res.hasError)
-          this.alertMessage = {
-            hasError: true,
+        if (res.hasError) {
+          let alertModel: AlertModel;
+          alertModel = {
+            type: 'danger',
             message: res.message
           }
+          this.alerts.push(alertModel)
+        }
         else {
           localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
@@ -69,10 +76,12 @@ export class UserComponent {
     this.userDataService.login(this.signinForm.value)
       .subscribe((res) => {
         if (res.hasError) {
-          this.alertMessage = {
-            hasError: true,
+          let alertModel: AlertModel;
+          alertModel = {
+            type: 'danger',
             message: res.message
           }
+          this.alerts.push(alertModel)
         } else {
           localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
@@ -99,9 +108,27 @@ export class UserComponent {
     this.isLogin = !this.isLogin
   }
 
-}
+  showAlert(data: ErrorModel) {
+    if (data.hasError) {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'danger',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+      setTimeout(() => this.staticAlertClosed = true, 2000);
+    } else {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'success',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+      setTimeout(() => this.staticAlertClosed = true, 2000);
+    }
+  }
 
-export interface Alert {
-  hasError: Boolean,
-  message: String
+  close(alert: AlertModel) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
 }

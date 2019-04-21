@@ -49,5 +49,5 @@ export interface SupplierResponse {
 export interface ASupplierResponse {
   suppliers: SupplierModel,
   hasError: false,
-  message: String
+  message: string
 }

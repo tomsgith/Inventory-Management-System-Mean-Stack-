@@ -42,3 +42,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .navMarginTop {
     padding: 80px;
 }
+
+.notification_box {
+  position: fixed;
+    top: 60px;
+    right: 80px;
+    z-index: 1;
+}

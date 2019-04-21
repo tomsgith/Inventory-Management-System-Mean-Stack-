@@ -22,9 +22,10 @@
             <button type="submit" class="btn btn-primary btn-block" [disabled]="!signinForm.valid"> Login
             </button>
           </div>
-          <div *ngIf="alertMessage.hasError" class="alertbox">
-            {{ alertMessage.message }}
-          </div>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="!staticAlertClosed" (close)="staticAlertClosed = true" [type]="alert.type"
+              (close)="close(alert)">{{ alert.message }}</ngb-alert>
+          </p>
           <div class="rightText" style="font-size: 12px; color: gray">
             Don't have an account? <p style="color: blue" (click)="switchFormState()">Sign Up</p>
           </div>

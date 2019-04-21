@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
-import { Alert } from '../user/user.component';
+import { AlertModel } from '../user/user.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierModalContent } from '../modal/supplier-modal/supplier-modal.component';
+import { ErrorModel } from '../user.data.service';
 
 @Component({
   selector: 'app-supplier',
@@ -15,8 +16,8 @@ export class SupplierComponent {
   suppliers: [SupplierModel]
   supplierForm: FormGroup
   isSupplierNew = true
-  alertMessage: Alert
-  showAlert = false
+  alerts: Array<AlertModel> = new Array();
+  staticAlertClosed = false;
 
   constructor(private modalService: NgbModal, private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
@@ -58,7 +59,6 @@ export class SupplierComponent {
     })
     this.supplierName = ''
     this.getSupplierByName('')
-    this.alertMessage = null
   }
 
   onKey(event: any) {
@@ -83,10 +83,7 @@ export class SupplierComponent {
           data => {
             this.supplierName = ''
             this.getSupplierByName('')
-            this.alertMessage = {
-              hasError: data.hasError,
-              message: data.message
-            }
+            this.showAlert(data)
           },
           err => console.error(err),
           () => console.log('Done UpdateSupplier')
@@ -97,10 +94,7 @@ export class SupplierComponent {
       this.supplierDataService.saveSupplier(this.supplierForm.value)
         .subscribe(
           data => {
-            this.alertMessage = {
-              hasError: data.hasError,
-              message: data.message
-            }
+            this.showAlert(data)
           },
           err => console.error(err),
           () => console.log('Done SaveSupplier')
@@ -119,10 +113,7 @@ export class SupplierComponent {
               data => {
                 this.supplierName = ''
                 this.getSupplierByName('')
-                this.alertMessage = {
-                  hasError: data.hasError,
-                  message: data.message
-                }
+                this.showAlert(data)
               },
               err => console.error(err),
               () => console.log('Done DeleteSupplier')
@@ -130,5 +121,29 @@ export class SupplierComponent {
         }
       })
       .catch(console.log)
+  }
+
+  showAlert(data: ErrorModel) {
+    if (data.hasError) {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'danger',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+      setTimeout(() => this.staticAlertClosed = true, 2000);
+    } else {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'success',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+      setTimeout(() => this.staticAlertClosed = true, 2000);
+    }
+  }
+
+  close(alert: AlertModel) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 }
