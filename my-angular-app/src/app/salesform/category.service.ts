@@ -11,12 +11,14 @@ export class CategoryService {
 
   }
 
-  
+  getcatagories(): Observable<category[]> {
+    return this.http.get<category[]>(this.baseUrl + '/products/category/category')
+  }
 }
 
-export interface ErrorModel {
-  hasError: string,
-  message: string
+export interface category {
+  name: string,
+  description: string
 }
 
 

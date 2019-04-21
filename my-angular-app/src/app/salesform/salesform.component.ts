@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SaleDataService } from './data.service.sale';
+import { CategoryService } from './category.service';
+
 
 @Component({
   selector: 'app-salesform',
@@ -7,13 +8,13 @@ import { SaleDataService } from './data.service.sale';
   styleUrls: ['./salesform.component.css']
 })
 export class SalesformComponent  {
-  imageurl:string;
+  categories$;
   products$;
-
-  constructor(private saleService:SaleDataService) {
-    this.products$=saleService.getAllProducts();
-    this.imageurl="./image/pro.png";
-  }
+//category service working
+  // constructor(private catagoryservice:CategoryService) {
+  //   catagoryservice.getcatagories().subscribe((data)=>{this.categories$=data ;console.log(this.categories$);});
+   
+  // }
 
 
 }
