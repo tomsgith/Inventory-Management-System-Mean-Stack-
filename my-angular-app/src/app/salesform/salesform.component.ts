@@ -1,44 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleDataService, Product } from './data.service.sale';
 import { ActivatedRoute } from '@angular/router';
-
-
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-salesform',
   templateUrl: './salesform.component.html',
   styleUrls: ['./salesform.component.css']
 })
-export class SalesformComponent   {
-  
-  
-  products:Product[]=[];
-  filteredProduct:Product[]=[];
-  category:string;
+export class SalesformComponent {
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
 
-constructor(
- saleService:SaleDataService,
- route:ActivatedRoute) {
-  saleService.getall().subscribe(prods=>{
-    this.products=prods;
-    //should be called inside to make sure this runs after products is populated
-    route.queryParamMap.subscribe((params)=>{
-      this.category=params.get('category')
-      this.filteredProduct=(this.category)?
-          this.products.filter(p=>p.type===this.category) :
-          this.products;
-
-  });
-  }); 
-  
-  
-  
-   
+  constructor(public productService: ProductService, saleService: SaleDataService, route: ActivatedRoute) {
+    this.getProduct()
   }
-  
 
+  getProduct() {
+    this.productService.getProductsService().subscribe((data) => {
+      this.products = data;
+      this.filteredProducts = data;
+    });
+  }
 
-
-
+  onKey(event) {
+    this.filteredProducts = this.products.filter(product => product.name.toLowerCase().includes(event.target.value.toLowerCase()))
+  }
 
 }
