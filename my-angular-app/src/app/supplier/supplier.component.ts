@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
-import { Alert } from '../user/user.component';
+import { AlertModel } from '../user/user.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SupplierModalContent } from '../modal/supplier-modal/supplier-modal.component';
+import { ErrorModel } from '../user.data.service';
 
 @Component({
   selector: 'app-supplier',
@@ -15,8 +16,7 @@ export class SupplierComponent {
   suppliers: [SupplierModel]
   supplierForm: FormGroup
   isSupplierNew = true
-  alertMessage: Alert
-  showAlert = false
+  alerts: Array<AlertModel> = new Array();
 
   constructor(private modalService: NgbModal, private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
@@ -58,7 +58,6 @@ export class SupplierComponent {
     })
     this.supplierName = ''
     this.getSupplierByName('')
-    this.alertMessage = null
   }
 
   onKey(event: any) {
@@ -78,34 +77,64 @@ export class SupplierComponent {
 
   onSaveSupplier(): void {
     if (this.supplierForm.value._id != 0) {
-      this.supplierDataService.updateSupplier(this.supplierForm.value)
-        .subscribe(
-          data => {
-            this.supplierName = ''
-            this.getSupplierByName('')
-            this.alertMessage = {
-              hasError: data.hasError,
-              message: data.message
-            }
-          },
-          err => console.error(err),
-          () => console.log('Done UpdateSupplier')
-        );
+      this.updateSupplier()
     } else {
-      const formValues = this.supplierForm.value;
-      delete formValues._id
-      this.supplierDataService.saveSupplier(this.supplierForm.value)
-        .subscribe(
-          data => {
-            this.alertMessage = {
-              hasError: data.hasError,
+      this.insertSupplier()
+    }
+  }
+
+  updateSupplier() {
+    this.supplierDataService.updateSupplier(this.supplierForm.value)
+      .subscribe(
+        data => {
+          this.supplierName = ''
+          this.getSupplierByName('')
+          if (data.hasError) {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'danger',
               message: data.message
             }
-          },
-          err => console.error(err),
-          () => console.log('Done SaveSupplier')
-        );
-    }
+            this.alerts.push(alertModel)
+          } else {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'success',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          }
+        },
+        err => console.error(err),
+        () => console.log('Done UpdateSupplier')
+      );
+  }
+
+  insertSupplier() {
+    const formValues = this.supplierForm.value;
+    delete formValues._id
+    this.supplierDataService.saveSupplier(this.supplierForm.value)
+      .subscribe(
+        data => {
+          if (data.hasError) {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'danger',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          } else {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'success',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          }
+        },
+        err => console.error(err),
+        () => console.log('Done SaveSupplier')
+      );
   }
 
   deleteSupplier(supplier: SupplierModel) {
@@ -119,9 +148,20 @@ export class SupplierComponent {
               data => {
                 this.supplierName = ''
                 this.getSupplierByName('')
-                this.alertMessage = {
-                  hasError: data.hasError,
-                  message: data.message
+                if (data.hasError) {
+                  let alertModel: AlertModel;
+                  alertModel = {
+                    type: 'danger',
+                    message: data.message
+                  }
+                  this.alerts.push(alertModel)
+                } else {
+                  let alertModel: AlertModel;
+                  alertModel = {
+                    type: 'success',
+                    message: data.message
+                  }
+                  this.alerts.push(alertModel)
                 }
               },
               err => console.error(err),
@@ -130,5 +170,9 @@ export class SupplierComponent {
         }
       })
       .catch(console.log)
+  }
+
+  close(alert: AlertModel) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 }

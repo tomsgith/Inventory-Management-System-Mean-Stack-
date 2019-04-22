@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const bcrypt = require('bcryptjs');
 
-mongoose.connect('mongodb://localhost:27017/inventory', { useNewUrlParser: true });
-
 const UserSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,

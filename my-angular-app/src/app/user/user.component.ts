@@ -1,24 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserDataService } from '../user.data.service';
+import { UserDataService, ErrorModel } from '../user.data.service';
 import { Router } from '@angular/router';
+
+export interface AlertModel {
+  type: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [NgbAlertConfig]
 })
 export class UserComponent {
   singupForm: FormGroup;
   signinForm: FormGroup;
   isLogin: boolean = true;
-  alertMessage: Alert = {
-    hasError: false,
-    message: ""
-  };
-
+  alerts: Array<AlertModel> = new Array();
+ 
   constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
       'firstname': ['surafel nigussie', [Validators.required]],
@@ -32,11 +35,11 @@ export class UserComponent {
     });
 
     this.signinForm = formBuilder.group({
-      'email': ['email@www.com', [
+      'email': ['sunigussie@mum.edu', [
         Validators.required,
         Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
       ]],
-      'password': ['password', Validators.required]
+      'password': ['12345', Validators.required]
     });
 
     this.singupForm.valueChanges
@@ -53,13 +56,16 @@ export class UserComponent {
   onSignUp(): void {
     this.userDataService.register(this.singupForm.value)
       .subscribe((res) => {
-        if (res.hasError)
-          this.alertMessage = {
-            hasError: true,
+        if (res.hasError) {
+          let alertModel: AlertModel;
+          alertModel = {
+            type: 'danger',
             message: res.message
           }
+          this.alerts.push(alertModel)
+        }
         else {
-          localStorage.setItem("UserToken", res.token)
+          localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
         }
       })
@@ -69,11 +75,14 @@ export class UserComponent {
     this.userDataService.login(this.signinForm.value)
       .subscribe((res) => {
         if (res.hasError) {
-          this.alertMessage = {
-            hasError: true,
+          let alertModel: AlertModel;
+          alertModel = {
+            type: 'danger',
             message: res.message
           }
+          this.alerts.push(alertModel)
         } else {
+          localStorage.setItem("IMStoken", res.token)
           this.router.navigate(['home'])
         }
       })
@@ -98,9 +107,25 @@ export class UserComponent {
     this.isLogin = !this.isLogin
   }
 
-}
+  showAlert(data: ErrorModel) {
+    if (data.hasError) {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'danger',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+    } else {
+      let alertModel: AlertModel;
+      alertModel = {
+        type: 'success',
+        message: data.message
+      }
+      this.alerts.push(alertModel)
+    }
+  }
 
-export interface Alert {
-  hasError: Boolean,
-  message: String
+  close(alert: AlertModel) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
 }
