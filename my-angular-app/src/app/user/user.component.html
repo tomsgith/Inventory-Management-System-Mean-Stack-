@@ -20,8 +20,7 @@
           </div>
           <div class="form-group">
             <p *ngFor="let alert of alerts">
-              <ngb-alert *ngIf="!staticAlertClosed" (close)="staticAlertClosed = true" [type]="alert.type"
-                (close)="close(alert)">{{ alert.message }}</ngb-alert>
+              <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
             </p>
             <button type="submit" class="btn btn-primary btn-block" [disabled]="!signinForm.valid"> Login
             </button>
@@ -66,8 +65,7 @@
             </div>
           </div>
           <p *ngFor="let alert of alerts">
-            <ngb-alert *ngIf="!staticAlertClosed" (close)="staticAlertClosed = true" [type]="alert.type"
-              (close)="close(alert)">{{ alert.message }}</ngb-alert>
+            <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
           </p>
           <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block" [disabled]="!singupForm.valid"> Register

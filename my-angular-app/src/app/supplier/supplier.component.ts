@@ -17,7 +17,6 @@ export class SupplierComponent {
   supplierForm: FormGroup
   isSupplierNew = true
   alerts: Array<AlertModel> = new Array();
-  staticAlertClosed = false;
 
   constructor(private modalService: NgbModal, private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
@@ -78,28 +77,64 @@ export class SupplierComponent {
 
   onSaveSupplier(): void {
     if (this.supplierForm.value._id != 0) {
-      this.supplierDataService.updateSupplier(this.supplierForm.value)
-        .subscribe(
-          data => {
-            this.supplierName = ''
-            this.getSupplierByName('')
-            this.showAlert(data)
-          },
-          err => console.error(err),
-          () => console.log('Done UpdateSupplier')
-        );
+      this.updateSupplier()
     } else {
-      const formValues = this.supplierForm.value;
-      delete formValues._id
-      this.supplierDataService.saveSupplier(this.supplierForm.value)
-        .subscribe(
-          data => {
-            this.showAlert(data)
-          },
-          err => console.error(err),
-          () => console.log('Done SaveSupplier')
-        );
+      this.insertSupplier()
     }
+  }
+
+  updateSupplier() {
+    this.supplierDataService.updateSupplier(this.supplierForm.value)
+      .subscribe(
+        data => {
+          this.supplierName = ''
+          this.getSupplierByName('')
+          if (data.hasError) {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'danger',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          } else {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'success',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          }
+        },
+        err => console.error(err),
+        () => console.log('Done UpdateSupplier')
+      );
+  }
+
+  insertSupplier() {
+    const formValues = this.supplierForm.value;
+    delete formValues._id
+    this.supplierDataService.saveSupplier(this.supplierForm.value)
+      .subscribe(
+        data => {
+          if (data.hasError) {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'danger',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          } else {
+            let alertModel: AlertModel;
+            alertModel = {
+              type: 'success',
+              message: data.message
+            }
+            this.alerts.push(alertModel)
+          }
+        },
+        err => console.error(err),
+        () => console.log('Done SaveSupplier')
+      );
   }
 
   deleteSupplier(supplier: SupplierModel) {
@@ -113,7 +148,21 @@ export class SupplierComponent {
               data => {
                 this.supplierName = ''
                 this.getSupplierByName('')
-                this.showAlert(data)
+                if (data.hasError) {
+                  let alertModel: AlertModel;
+                  alertModel = {
+                    type: 'danger',
+                    message: data.message
+                  }
+                  this.alerts.push(alertModel)
+                } else {
+                  let alertModel: AlertModel;
+                  alertModel = {
+                    type: 'success',
+                    message: data.message
+                  }
+                  this.alerts.push(alertModel)
+                }
               },
               err => console.error(err),
               () => console.log('Done DeleteSupplier')
@@ -121,26 +170,6 @@ export class SupplierComponent {
         }
       })
       .catch(console.log)
-  }
-
-  showAlert(data: ErrorModel) {
-    if (data.hasError) {
-      let alertModel: AlertModel;
-      alertModel = {
-        type: 'danger',
-        message: data.message
-      }
-      this.alerts.push(alertModel)
-      setTimeout(() => this.staticAlertClosed = true, 2000);
-    } else {
-      let alertModel: AlertModel;
-      alertModel = {
-        type: 'success',
-        message: data.message
-      }
-      this.alerts.push(alertModel)
-      setTimeout(() => this.staticAlertClosed = true, 2000);
-    }
   }
 
   close(alert: AlertModel) {

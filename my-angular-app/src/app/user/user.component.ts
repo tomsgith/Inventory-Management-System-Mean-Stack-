@@ -21,7 +21,6 @@ export class UserComponent {
   signinForm: FormGroup;
   isLogin: boolean = true;
   alerts: Array<AlertModel> = new Array();
-  staticAlertClosed = false;
  
   constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
@@ -116,7 +115,6 @@ export class UserComponent {
         message: data.message
       }
       this.alerts.push(alertModel)
-      setTimeout(() => this.staticAlertClosed = true, 2000);
     } else {
       let alertModel: AlertModel;
       alertModel = {
@@ -124,7 +122,6 @@ export class UserComponent {
         message: data.message
       }
       this.alerts.push(alertModel)
-      setTimeout(() => this.staticAlertClosed = true, 2000);
     }
   }
 

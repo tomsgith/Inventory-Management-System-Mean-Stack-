@@ -35,10 +35,6 @@
     </div>
 
     <div class="col-md-8">
-      <p *ngFor="let alert of alerts" class="notification_box">
-        <ngb-alert *ngIf="!staticAlertClosed" (close)="staticAlertClosed = true" [type]="alert.type"
-          (close)="close(alert)">{{ alert.message }}</ngb-alert>
-      </p>
       <div class="">
         <h4 class="mb-3">Supplier Information</h4>
         <button class="btn btn-primary" style="float: right; position: relative;top: -10px;"
@@ -91,6 +87,10 @@
         <input hidden [formControl]="supplierForm.get('_id')">
 
         <hr class="mb-4">
+
+        <p *ngFor="let alert of alerts" class="notification_box">
+          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+        </p>
 
         <button *ngIf="!isSupplierNew" class="btn btn-primary btn-lg btn-block" type="submit"
           [disabled]="!supplierForm.valid">Update</button>

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
-
 const saleSchema = new mongoose.Schema({
     name: String,
     brand: String, 

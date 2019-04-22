@@ -49,7 +49,7 @@ router.post('/login', async function (req, res) {
         let userModel = new UserModel(req.body)
         await UserModel.findOne({ email: userModel.email }, function (err, user) {
             if (!user) {
-                res.status(202).send({ hasError: true, message: "No user found" });
+                res.status(202).send({ hasError: true, message: "Account doesn't exist, sign up" });
                 res.end()
             } else if (!bcrypt.compareSync(userModel.password, user.password)) {
                 res.status(401).send({ auth: false, token: null, hasError: true, message: "Invalid credentials" });
