@@ -20,7 +20,11 @@ export class ProductService {
   }
 
   addProduct(product): Observable<any> {
-    return this.http.post(this.url, product)
+    return this.http.post<ProductModel>(this.url, product)
+  }
+
+  getall(): Observable<category[]> {
+    return this.http.get<category[]>(this.url + '/product/category/category')
   }
 
 
@@ -37,4 +41,8 @@ export interface ProductModel {
   username: String,
   created_at: Date,
   updated_at: Date
+}
+export interface category {
+  name: string,
+  description: string
 }
