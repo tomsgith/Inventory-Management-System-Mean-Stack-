@@ -5,6 +5,8 @@ const ProductSale = require('../Service/sales');
 const productSale = new ProductSale();
 const CategoryService = require('../Service/category');
 const categoryService = new CategoryService();
+const SaleLoadService = require('../Service/saleLoadSer');
+const saleLoadService = new SaleLoadService();
 
 //usrls for geting and updating products
 router.post('/', function (req, res, next) {
@@ -88,4 +90,31 @@ router.post('/', function (req, res, next) {
                         (err)=>next(err),null);
                                     
                 });
+                //loading sale load//////post
+                router.post('/saleLoad', function (req, res, next) {
+                  saleLoadService.add(req.body)
+                    .then((result) => res.status(200).json(result))
+                    .catch((err) => next(err));
+                });
+                //get all
+                router.get('/saleLoad', function (req, res, next) {
+                  const queryObj = {};
+                  saleLoadService.getAll(queryObj).subscribe(
+                      (users) => res.status(200).json(users),
+                      (err) => next(err),
+                      null
+                    );
+                  
+                  });
+                //get by Id
+                  router.get('/saleLoad/:id', function (req, res, next) {
+                    const queryObj = {"_id":req.params.id};
+                    saleLoadService.getOne(queryObj).subscribe(
+                        (users) => res.status(200).json(users),
+                        (err) => next(err),
+                        null
+                      );
+                    
+                    });
+              
 module.exports = router
