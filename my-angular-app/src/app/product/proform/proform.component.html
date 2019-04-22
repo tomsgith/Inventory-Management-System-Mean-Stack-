@@ -1,43 +1,41 @@
 
 <!-- [formGroup]= "newProduct" (ngSubmit)="saveProduct()" -->
-<form >
+<form [formGroup]= "newProduct"(ngSubmit)="saveProduct()">
   <div class="form-group">
     <label for="name">Name</label>
-    <input id="name" type="text" class="form-control" >
+    <input id="name" type="text" class="form-control" formControlName= "name" >
   </div>
   <div class="form-group">
       <label for="brand">Brand</label>
-      <input id="brand" type="text" class="form-control" >
+      <input id="brand" type="text" class="form-control" formControlName= "brand" >
     </div>
   <div class="form-group">
         <label for="description">Description</label>
-        <input id="description" type="text" class="form-control" >
+        <input id="description" type="text" class="form-control" formControlName="description">
       </div>
     <div class="form-group">
           <label for="quantity">Quantity</label>
-          <input id="quantity" type="number" class="form-control">
+          <input id="quantity" type="number" class="form-control" formConrolName="quantity">
           
         </div>
   <div class="form-group">
     <label for="price">Price</label>
     <div class="iput-group">
         <span class="input-group-addon">$</span>
-        <input id="price" type="number" class="form-control" >
+        <input id="price" type="number" class="form-control" formControlName="price" >
       </div>    
   </div>
   <div class="form-group">
       <label for="category">Categories</label>    
-      <select id="category" class="form-control">
-        <option value=""> </option>
+      <select id="category" class="form-control" formControlName="category">
+        <option value=""></option>
         <option *ngFor="let cat of categories$ | async" [value]="cat.$key">
-          {{cat.name}}
         </option>
-
         </select>
     </div>
   <div class="form-group">
       <label for="username">User</label>
-      <input id="username" type="text" class="form-control">
+      <input id="username" type="text" class="form-control" formControlName="username">
     </div>
-<button class="btn btn-primary">Save</button>
+<button class="btn btn-primary" type="submit">Save</button>
 </form>

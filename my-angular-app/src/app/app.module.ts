@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'product', component: ProductComponent, canActivate: [AuthGuardService] },
   { path: 'product/new', component: ProformComponent, canActivate: [AuthGuardService] },
-  { path: 'product/edit', component: EditProductComponent, canActivate: [AuthGuardService] },
+  { path: 'product/edit/:id', component: EditProductComponent, canActivate: [AuthGuardService] },
   { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuardService] },
   { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuardService] },
   { path: 'sale', component: SalesformComponent, canActivate: [AuthGuardService] }
