@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const config = require('../config');
-const UserModel = require('../models/users');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+const config = require('../config')
+const UserModel = require('../models/users')
 
 router.post("/register", async (req, res) => {
     try {
@@ -49,7 +49,7 @@ router.post('/login', async function (req, res) {
         let userModel = new UserModel(req.body)
         await UserModel.findOne({ email: userModel.email }, function (err, user) {
             if (!user) {
-                res.status(202).send({ hasError: true, message: "No user found" });
+                res.status(202).send({ hasError: true, message: "Account doesn't exist, sign up" });
                 res.end()
             } else if (!bcrypt.compareSync(userModel.password, user.password)) {
                 res.status(401).send({ auth: false, token: null, hasError: true, message: "Invalid credentials" });
@@ -60,6 +60,20 @@ router.post('/login', async function (req, res) {
                 res.end()
             }
         })
+    } catch (e) {
+        res.status(500).send(e);
+        res.end()
+    }
+});
+
+router.post('/verifyToken', async function (req, res) {
+    try {
+        await jwt.verify(req.body.token, config.secret, function (err, decoded) {
+            if (err)
+                return resp.status(200).send(false)
+            else
+                return resp.status(200).send(true)
+        });
     } catch (e) {
         res.status(500).send(e);
         res.end()

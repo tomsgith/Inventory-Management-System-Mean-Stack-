@@ -19,16 +19,14 @@ export class UserDataService {
 
   register(userModel: UserModel): Observable<UserResponse> {
     return this.http.post<UserResponse>(this.baseUrl + '/auth/register', userModel)
-      .pipe(
-        tap((user: UserResponse) => console.log(user))
-      );
+  }
+
+  verifyToken(token: String): Observable<ErrorModel> {
+    return this.http.post<ErrorModel>(this.baseUrl + '/auth/verifyToken', { "token": token })
   }
 
   login(userModel: UserModel): Observable<UserResponse> {
     return this.http.post<UserResponse>(this.baseUrl + '/auth/login', userModel)
-      .pipe(
-        tap((user: UserResponse) => console.log(user))
-      );
   }
 }
 

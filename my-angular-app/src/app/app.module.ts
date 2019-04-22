@@ -16,20 +16,29 @@ import { ProformComponent } from './product/proform/proform.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 import { SupplierModalContent } from './modal/supplier-modal/supplier-modal.component';
 import { NavigationComponent } from './nav/navigation.component';
-import { SalesFilterComponent } from './salesform/sales-filter/sales-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { SalesFilterComponent } from './salesform/sales-filter/sales-filter.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptor/token.interceptor';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: UserComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'product', component: ProductComponent },
-  { path: 'product/new', component: ProformComponent },
-  { path: 'product/edit', component: EditProductComponent },
-  { path: 'employee', component: EmployeeComponent },
-  { path: 'supplier', component: SupplierComponent },
-  { path: 'sale', component: SalesformComponent }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'product', component: ProductComponent, canActivate: [AuthGuardService] },
+  { path: 'product/new', component: ProformComponent, canActivate: [AuthGuardService] },
+  { path: 'product/edit', component: EditProductComponent, canActivate: [AuthGuardService] },
+  { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuardService] },
+  { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuardService] },
+  { path: 'sale', component: SalesformComponent, canActivate: [AuthGuardService] }
+  // { path: '**', component: PageNotFoundComponent }
 ];
+
+export function tokenGetter() {
+  return localStorage.getItem('IMStoken');
+}
 
 @NgModule({
   declarations: [
@@ -57,7 +66,22 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: [],
+        blacklistedRoutes: []
+      }
+    })
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
