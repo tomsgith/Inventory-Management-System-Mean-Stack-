@@ -28,8 +28,8 @@
       <label for="category">Categories</label>    
       <select id="category" class="form-control" formControlName="category">
         <option value=""> </option>
-        <option *ngFor="let cat of categories$ | async" [value]="cat.$name">
-            {{cat}}
+        <option *ngFor="let cat of categories$ | async" [value]="cat.name">
+           {{cat.name}}
         </option>
         
         </select>

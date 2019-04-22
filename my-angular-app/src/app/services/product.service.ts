@@ -31,8 +31,8 @@ export class ProductService {
     return this.http.get<category[]>(this.url + '/product/category/category')
   }
 
-  delete(id:string):Observable<any>{
-    return this.http.delete(this.url +'/product/delete'+id);
+  delete(id:String):Observable<any>{
+    return this.http.delete(this.url +'/product/'+ id);
   }
 
 }
