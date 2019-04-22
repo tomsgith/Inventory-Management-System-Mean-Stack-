@@ -4,20 +4,31 @@
       <article class="card-body">
         <h4 class="card-title mb-4 mt-1">Sign in</h4>
         <form [formGroup]="signinForm" (ngSubmit)="onSignIn()">
+
           <div class="form-group">
-            <input class="form-control" placeholder="Email" type="email" [formControl]="signinForm.get('email')">
-            <div *ngIf="!signinForm.get('email').valid"> Invalid Email </div>
+            <input class="form-control" placeholder="Email" type="email" formControlName="email">
+            <div
+              *ngIf="signinForm.controls.email.invalid && (signinForm.controls.email.dirty || signinForm.controls.email.touched)"
+              class="text-danger">
+              Please enter a valid email
+            </div>
           </div>
+
           <div class="form-group">
-            <input class="form-control" placeholder="Password" type="password"
-              [formControl]="signinForm.get('password')">
-            <div *ngIf="!signinForm.get('email').valid"> Invalid Password </div>
+            <input class="form-control" placeholder="Password" type="password" formControlName="password">
+            <div
+              *ngIf="signinForm.controls.password.invalid && (signinForm.controls.password.dirty || signinForm.controls.password.touched)"
+              class="text-danger">
+              Please enter Password
+            </div>
           </div>
+
           <div class="form-group">
             <div class="checkbox">
               <label> <input type="checkbox"> Remember me </label>
             </div>
           </div>
+
           <div class="form-group">
             <p *ngFor="let alert of alerts">
               <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
@@ -25,8 +36,9 @@
             <button type="submit" class="btn btn-primary btn-block" [disabled]="!signinForm.valid"> Login
             </button>
           </div>
-          <div class="rightText" style="font-size: 12px; color: gray">
-            Don't have an account? <p style="color: blue" (click)="switchFormState()">Sign Up</p>
+
+          <div class="rightText" style="font-size: 12px; color: gray; display: flex">
+            Don't have an account? <p style="color: blue; margin-left: 5px" (click)="switchFormState()">Sign Up</p>
           </div>
         </form>
       </article>
@@ -38,26 +50,32 @@
         <h4 class="card-title mb-4 mt-1">Sign Up</h4>
         <form [formGroup]="singupForm" (ngSubmit)="onSignUp()">
           <div class="form-group">
-            <input class="form-control" placeholder="First Name" type="text"
-              [formControl]="singupForm.get('firstname')">
-            <div *ngIf="!singupForm.get('firstname').valid">Invalid First Name</div>
+            <input class="form-control" placeholder="First Name" type="text" formControlName="firstname">
+            <div
+              *ngIf="singupForm.controls.firstname.invalid && (singupForm.controls.firstname.dirty || singupForm.controls.firstname.touched)"
+              class="text-danger">Please enter first name</div>
           </div>
           <div class="form-group">
-            <input class="form-control" placeholder="Last Name" type="text" [formControl]="singupForm.get('lastname')">
-            <div *ngIf="!singupForm.get('lastname').valid">Invalid Last Name</div>
+            <input class="form-control" placeholder="Last Name" type="text" formControlName="lastname">
+            <div
+              *ngIf="singupForm.controls.lastname.invalid && (singupForm.controls.lastname.dirty || singupForm.controls.lastname.touched)"
+              class="text-danger">Please enter last name</div>
           </div>
           <div class="form-group">
-            <input class="form-control" placeholder="Email" type="email" [formControl]="singupForm.get('email')">
-            <div *ngIf="!singupForm.get('email').valid"> Invalid Email </div>
+            <input class="form-control" placeholder="Email" type="email" formControlName="email">
+            <div
+              *ngIf="singupForm.controls.email.invalid && (singupForm.controls.email.dirty || singupForm.controls.email.touched)"
+              class="text-danger">Invalid email address</div>
           </div>
           <div class="form-group">
-            <input class="form-control" placeholder="Password" type="password"
-              [formControl]="singupForm.get('password')">
+            <input class="form-control" placeholder="Password" type="password" formControlName="password">
           </div>
           <div class="form-group">
             <input class="form-control" placeholder="Confirm Password" type="password"
-              [formControl]="singupForm.get('confirmpassword')">
-            <div *ngIf="!singupForm.get('confirmpassword').valid">Invalid Passwords or must match</div>
+              formControlName="confirmpassword">
+            <div
+              *ngIf="singupForm.controls.confirmpassword.invalid && (singupForm.controls.confirmpassword.dirty || singupForm.controls.confirmpassword.touched)"
+              class="text-danger">Invalid passwords or both passwords must match</div>
           </div>
           <div class="form-group">
             <div class="checkbox">
@@ -72,8 +90,8 @@
             </button>
           </div>
 
-          <div class="rightText" style="font-size: 12px; color: gray">
-            Already have an account? <p style="color: blue" (click)="switchFormState()">Sign in</p>
+          <div class="rightText" style="font-size: 12px; color: gray; display: flex">
+            Already have an account? <p style="color: blue; margin-left: 5px" (click)="switchFormState()">Sign in</p>
           </div>
         </form>
       </article>

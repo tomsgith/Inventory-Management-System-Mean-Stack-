@@ -23,6 +23,8 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SaleLoadService } from './sale-load.service';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -45,7 +47,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     SalesformComponent,
-    ProductComponent,
+    ProductComponent, 
     HomeComponent,
     UserComponent,
     EmployeeComponent,
@@ -74,7 +76,9 @@ export function tokenGetter() {
         whitelistedDomains: [],
         blacklistedRoutes: []
       }
-    })
+    }),
+    LoadingBarHttpClientModule,
+    LoadingBarModule
   ],
   providers: [
     {
