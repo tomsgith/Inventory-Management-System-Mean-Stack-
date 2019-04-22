@@ -16,6 +16,7 @@ export class SaleDataService {
   getall(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + '/sales')
   }
+  
 }
 
 

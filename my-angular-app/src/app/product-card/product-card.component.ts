@@ -14,19 +14,8 @@ export class ProductCardComponent {
 
   addToCart(product:Product){
     
-   let cardId=localStorage.getItem('cardId');
-   console.log(cardId)
-   if(!cardId){
-    console.log(">>>>addtocart working")
-    this.saleLoad.create().subscribe((param)=>{
-    localStorage.setItem('cardId',param._id);
-
-      //Add to cart
-    });
-   }else {
-     //add product to shoping cart
-     
-   }
+   
+   
   }
 
 }

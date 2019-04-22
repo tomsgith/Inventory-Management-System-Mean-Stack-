@@ -7,6 +7,7 @@ class saleLoadService {
 
     add(saleLoadObj) {        
         let newsaleLoad = new saleLoad(saleLoadObj);
+        console.log(newsaleLoad)
         return newsaleLoad.save();
 
     }
