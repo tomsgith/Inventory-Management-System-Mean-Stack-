@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleDataService, Product } from './data.service.sale';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService, ProductModel } from '../services/product.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class SalesformComponent {
   filteredProducts: Product[] = [];
   selectedProducts: Product[] = [];
 
-  constructor(public productService: ProductService, saleService: SaleDataService, route: ActivatedRoute) {
+  constructor(public productService: ProductService, private saleService: SaleDataService, private route: ActivatedRoute, private pageRoute: Router) {
     this.getProduct()
   }
 
@@ -26,14 +26,24 @@ export class SalesformComponent {
 
   onKey(event) {
     this.filteredProducts = this.products.filter(product => product.name.toLowerCase().includes(event.target.value.toLowerCase()))
-    this.selectedProducts = this.filteredProducts
   }
 
-  onProductSelected(product: ProductModel) {
+  onProductSelected(product: Product) {
+    for (let x = 0; x < this.selectedProducts.length; x++) {
+      if (this.selectedProducts[x]._id === product._id) {
+        return this.selectedProducts[x].quantity = this.selectedProducts[x].quantity + 1
+      }
+    }
     this.selectedProducts.push(product)
   }
 
   deleteProduct(index: number) {
     this.selectedProducts.splice(index, 1)
+  }
+
+  onSale() {
+    this.saleService.saveSale(this.selectedProducts).subscribe((data) => {
+      this.pageRoute.navigate(['home'])
+    });
   }
 }

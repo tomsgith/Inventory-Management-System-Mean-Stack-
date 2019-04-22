@@ -47,7 +47,8 @@ export interface ProductModel {
   image: String,
   username: String,
   created_at: Date,
-  updated_at: Date
+  updated_at: Date,
+  _id: string
 }
 export interface category {
   name: string,

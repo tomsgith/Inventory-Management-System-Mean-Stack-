@@ -53,7 +53,7 @@
             <td>{{ product.brand }}</td>
             <td>{{ product.description}}</td>
             <td>
-              <input id="search" type="search" [value]="product.quantity" class="form-control"
+              <input id="search" type="search" [(ngModel)]=product.quantity class="form-control"
                 placeholder="Product Quantity">
             </td>
             <td>
@@ -67,7 +67,8 @@
         </tbody>
       </table>
 
-      <button class="btn btn-primary btn-lg btn-block" style="width: 200px; float: right;" type="submit">Sale</button>
+      <button class="btn btn-primary btn-lg btn-block" (click)="onSale()" style="width: 200px; float: right;"
+        type="submit">Sale</button>
     </div>
 
   </div>
