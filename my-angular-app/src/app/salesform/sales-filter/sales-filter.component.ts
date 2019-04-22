@@ -6,13 +6,11 @@ import { CategoryService } from '../category.service';
   templateUrl: './sales-filter.component.html',
   styleUrls: ['./sales-filter.component.css']
 })
-export class SalesFilterComponent  {
-  @Input('category') category:string;
+export class SalesFilterComponent {
+  @Input('category') category: string;
   categories$;
-  constructor(catagoryservice:CategoryService) {
-    this.categories$=catagoryservice.getall();
-   }
-
-  
+  constructor(catagoryservice: CategoryService) {
+    this.categories$ = catagoryservice.getall();
+  }
 
 }
