@@ -13,7 +13,10 @@ import { CategoryService } from 'src/app/salesform/category.service';
 export class EditProductComponent implements OnInit {
   categories$
   editProduct:FormGroup
-  constructor(private fb:FormBuilder,public productService: ProductService,private router: ActivatedRoute,  category:CategoryService) {
+  constructor(private fb:FormBuilder,
+    public productService: ProductService,
+    private router: ActivatedRoute,  
+    category:CategoryService) {
   this.categories$ =category.getall();
   this.editProduct = fb.group({
     'name':new FormControl('',Validators.required),
@@ -21,7 +24,7 @@ export class EditProductComponent implements OnInit {
     'description':new FormControl('',Validators.required),
     'quantity':new FormControl('',Validators.required),
     'price':new FormControl('',Validators.required),
-    'category':new FormControl('',Validators.required),
+     'category':new FormControl('',Validators.required),
     'username':new FormControl('',Validators.required),
   });
   
@@ -32,14 +35,14 @@ export class EditProductComponent implements OnInit {
      (err) => {console.log('can not edit Product')})
   }
 
-  saveProduct():void{
-    this.productService.addProduct(this.editProduct.value).
+  deleteProduct(id:String):void{
+    this.productService.delete(this.router.snapshot.paramMap.get('id')).
     subscribe((data)=>{console.log('New product added')},(err)=>{console.log('Cannot add this product')})
 
   }
   ngOnInit() {
     this.productService.getProductById(this.router.snapshot.paramMap.get('id')).subscribe((data)=>{
-   
+   if(!data){
       this.editProduct.patchValue({
         name:data.name,
         brand: data.brand,
@@ -49,8 +52,8 @@ export class EditProductComponent implements OnInit {
         category:data.category,
         username:data.username
 
-      })
-    })
+      })}
+    });
   }
 
 }

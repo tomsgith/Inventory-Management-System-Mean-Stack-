@@ -26,8 +26,9 @@
     <td>{{ product.brand }}</td>
     <td>{{ product.description}}</td>   
     <td>{{ product.quantity}}</td>
-    <td><a routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</a></td>
-   
+    <span><td><a routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</a></td>
+      <!-- //how to connect it to the backend -->
+    <td><a id ="delete" (click)="deleteProduct()" routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Delete</a></td></span>
     
 
   </tr>
