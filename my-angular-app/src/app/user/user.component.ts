@@ -21,25 +21,25 @@ export class UserComponent {
   signinForm: FormGroup;
   isLogin: boolean = true;
   alerts: Array<AlertModel> = new Array();
- 
+
   constructor(private formBuilder: FormBuilder, private userDataService: UserDataService, private router: Router) {
     this.singupForm = formBuilder.group({
-      'firstname': ['surafel nigussie', [Validators.required]],
-      'lastname': ['asfaw', Validators.required],
-      'email': ['sunigussie@mum.edu', [
+      'firstname': new FormControl('surafel nigussie', Validators.required),
+      'lastname': new FormControl('asfaw', Validators.required),
+      'email': new FormControl('sunigussie@mum.edu', Validators.compose([
         Validators.required,
-        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-      ]],
-      'password': ['12345', Validators.required],
-      'confirmpassword': ['12345', Validators.required]
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      'password': new FormControl('12345', Validators.required),
+      'confirmpassword': new FormControl('12345', Validators.required)
     });
 
     this.signinForm = formBuilder.group({
-      'email': ['sunigussie@mum.edu', [
+      'email': new FormControl('sunigussie@mum.edu', Validators.compose([
         Validators.required,
-        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-      ]],
-      'password': ['12345', Validators.required]
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      'password': new FormControl('12345', Validators.required),
     });
 
     this.singupForm.valueChanges

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { SupplierDataService, SupplierModel } from '../supplier.data.service';
 import { AlertModel } from '../user/user.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,11 +20,14 @@ export class SupplierComponent {
 
   constructor(private modalService: NgbModal, private supplierDataService: SupplierDataService, private formBuilder: FormBuilder, private cr: ChangeDetectorRef) {
     this.supplierForm = formBuilder.group({
-      'name': ['', [Validators.required]],
-      'address': ['', Validators.required],
-      'phone': ['', Validators.required],
-      'email': ['', Validators.required],
-      'type': ['', Validators.required],
+      'name': new FormControl('', Validators.required),
+      'address': new FormControl(''),
+      'phone': new FormControl('', Validators.required),
+      'email': new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      'type': new FormControl('', Validators.required),
       '_id': 0
     });
 

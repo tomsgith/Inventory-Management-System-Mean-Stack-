@@ -40,48 +40,52 @@
         <button class="btn btn-primary" style="float: right; position: relative;top: -10px;"
           (click)="onResetForm()">Reset</button>
       </div>
-      <form class="needs-validation" novalidate="" [formGroup]="supplierForm" (ngSubmit)="onSaveSupplier()">
+      <form [formGroup]="supplierForm" (ngSubmit)="onSaveSupplier()">
 
         <div class="mb-3">
           <label for="address">Supplier</label>
-          <input type="text" class="form-control" id="name" placeholder="Supplier 1"
-            [formControl]="supplierForm.get('name')">
-          <div class="invalid-feedback" *ngIf="!supplierForm.get('name').valid">
-            Please enter your supplier name.
+          <input type="text" class="form-control" id="name" placeholder="Supplier 1" formControlName="name" required>
+          <div
+            *ngIf="supplierForm.controls.name.invalid && (supplierForm.controls.name.dirty || supplierForm.controls.name.touched)"
+            class="text-danger">
+            Please enter your supplier name
           </div>
         </div>
 
         <div class="mb-3">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com"
-            [formControl]="supplierForm.get('email')">
-          <div class="invalid-feedback" *ngIf="!supplierForm.get('email').valid">
-            Please enter a valid email address.
+          <input type="email" class="form-control" id="email" placeholder="you@example.com" formControlName="email"
+            required>
+          <div
+            *ngIf="supplierForm.controls.email.invalid && (supplierForm.controls.email.dirty || supplierForm.controls.email.touched)"
+            class="text-danger">
+            Please enter a valid email address
           </div>
         </div>
 
         <div class="mb-3">
           <label for="address">Phone</label>
-          <input type="text" class="form-control" id="phone" placeholder="123 456 7890"
-            [formControl]="supplierForm.get('phone')">
-          <div class="invalid-feedback" *ngIf="!supplierForm.get('phone').valid">
-            Please enter your phone.
+          <input type="text" class="form-control" id="phone" placeholder="123 456 7890" formControlName="phone">
+          <div
+            *ngIf="supplierForm.controls.phone.invalid && (supplierForm.controls.phone.dirty || supplierForm.controls.phone.touched)"
+            class="text-danger">
+            Please enter your phone
           </div>
         </div>
 
         <div class="mb-3">
           <label for="address">Type</label>
-          <input type="text" class="form-control" id="type" placeholder="Food,..."
-            [formControl]="supplierForm.get('type')">
-          <div class="invalid-feedback" *ngIf="!supplierForm.get('type').valid">
+          <input type="text" class="form-control" id="type" placeholder="Food" formControlName="type">
+          <div
+            *ngIf="supplierForm.controls.type.invalid && (supplierForm.controls.type.dirty || supplierForm.controls.type.touched)"
+            class="text-danger">
             Please enter supplier type
           </div>
         </div>
 
         <div class="mb-3">
           <label for="address2">Address <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="type" placeholder="Food,..."
-            [formControl]="supplierForm.get('address')">
+          <input type="text" class="form-control" id="type" placeholder="1000 N 4th St." formControlName="address">
         </div>
 
         <input hidden [formControl]="supplierForm.get('_id')">
