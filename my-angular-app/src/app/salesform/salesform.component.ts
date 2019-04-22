@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleDataService, Product } from './data.service.sale';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../services/product.service';
+import { ProductService, ProductModel } from '../services/product.service';
 
 @Component({
   selector: 'app-salesform',
@@ -11,6 +11,7 @@ import { ProductService } from '../services/product.service';
 export class SalesformComponent {
   products: Product[] = [];
   filteredProducts: Product[] = [];
+  selectedProducts: Product[] = [];
 
   constructor(public productService: ProductService, saleService: SaleDataService, route: ActivatedRoute) {
     this.getProduct()
@@ -25,6 +26,14 @@ export class SalesformComponent {
 
   onKey(event) {
     this.filteredProducts = this.products.filter(product => product.name.toLowerCase().includes(event.target.value.toLowerCase()))
+    this.selectedProducts = this.filteredProducts
   }
 
+  onProductSelected(product: ProductModel) {
+    this.selectedProducts.push(product)
+  }
+
+  deleteProduct(index: number) {
+    this.selectedProducts.splice(index, 1)
+  }
 }

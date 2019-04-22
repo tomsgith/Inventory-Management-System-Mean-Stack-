@@ -14,7 +14,8 @@
         </div>
       </div>
       <ul class="list-group mb-3">
-        <li *ngFor="let product of filteredProducts" class="list-group-item d-flex justify-content-between lh-condensed">
+        <li *ngFor="let product of filteredProducts"
+          class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
             <h6 class="my-0">{{product.name}}</h6>
             <small class="text-muted">Category: {{product.category}}</small>
@@ -33,9 +34,40 @@
     <div class="col-md-8">
       <div class="">
         <h4 class="mb-3">Shopping Cart</h4>
-
       </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Description</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of selectedProducts; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ product.name}}</td>
+            <td>{{ product.brand }}</td>
+            <td>{{ product.description}}</td>
+            <td>
+              <input id="search" type="search" [value]="product.quantity" class="form-control"
+                placeholder="Product Quantity">
+            </td>
+            <td>
+              <i class="material-icons"
+                style="vertical-align: middle; margin-right: 10px; color: #d42f2f; cursor: pointer"
+                (click)="deleteProduct(i)">
+                clear
+              </i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
+      <button class="btn btn-primary btn-lg btn-block" style="width: 200px; float: right;" type="submit">Sale</button>
     </div>
 
   </div>
