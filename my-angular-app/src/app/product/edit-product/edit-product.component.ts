@@ -41,7 +41,14 @@ export class EditProductComponent implements OnInit {
     this.productService.getProductById(this.router.snapshot.paramMap.get('id')).subscribe((data)=>{
    
       this.editProduct.patchValue({
-        name:data.name
+        name:data.name,
+        brand: data.brand,
+        description: data.description,
+        quantity:data.quantity,
+        price:data.price,
+        category:data.category,
+        username:data.username
+
       })
     })
   }
