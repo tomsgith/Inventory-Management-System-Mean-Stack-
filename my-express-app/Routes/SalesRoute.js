@@ -3,6 +3,8 @@ const ProductService = require('../Service/salesproduct');
 const productService = new ProductService();
 const ProductSale = require('../Service/sales');
 const productSale = new ProductSale();
+const CategoryService = require('../Service/category');
+const categoryService = new CategoryService();
 
 //usrls for geting and updating products
 router.post('/', function (req, res, next) {
@@ -78,4 +80,12 @@ router.post('/', function (req, res, next) {
                       }))
                       .catch((err) => next(err));
                   });
+//getting all categories
+                  router.get('/category/category', (req, res, next) => {
+                    const query ={};
+                    categoryService.getAll(query).subscribe(
+                        (data)=>res.status(200).json(data),
+                        (err)=>next(err),null);
+                                    
+                });
 module.exports = router

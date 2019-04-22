@@ -16,6 +16,8 @@ import { ProformComponent } from './product/proform/proform.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 import { SupplierModalContent } from './modal/supplier-modal/supplier-modal.component';
 import { NavigationComponent } from './nav/navigation.component';
+import { SalesFilterComponent } from './salesform/sales-filter/sales-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,7 +43,9 @@ const appRoutes: Routes = [
     ProformComponent,
     EditProductComponent,
     SupplierModalContent,
-    NavigationComponent
+    NavigationComponent,
+    SalesFilterComponent,
+    ProductCardComponent
   ],
   entryComponents: [
     SupplierModalContent

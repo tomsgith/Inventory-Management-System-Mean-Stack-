@@ -3,36 +3,13 @@
 <div class="navMarginTop">
 <div class="row">
   <div class="col-3">
-    <div class="list-group">
-      <a class="list-group-item list-group-item-action"
-        [class.active]="!category"
-        routerLink="/sale"
-        >
-        All Catagories
-      </a>
-      <a 
-        *ngFor="let c of categories$ | async" 
-        routerLink="/sale" 
-        [queryParams]="{category:c.name}" 
-        class="list-group-item list-group-item-action"
-        [class.active]="category === c.name "
-        >
-        {{c.name}}
-      </a>
-    </div>
+    <app-sales-filter [category]="category"></app-sales-filter>
   </div>
   <div class="col">
       <div class="row">
           <ng-container *ngFor="let p of filteredProduct ;let i=index">
             <div class="col">
-              <div class="card" style="width: 15rem;">
-                <img [src]="p.image" class="card-img-top" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">{{p.name}}</h5>
-                  <p class="card-text">{{p.price | currency :'USD':true}}</p>
-                  <a href="#" class="btn btn-primary">Add To Sale</a>
-                </div>
-              </div>        
+              <product-card [product]="p"></product-card>       
             </div>
             <div *ngIf="(i+1)%2===0" class="w-100"></div>
           </ng-container>

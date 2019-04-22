@@ -12,7 +12,7 @@ export class CategoryService {
   }
 
   getall(): Observable<category[]> {
-    return this.http.get<category[]>(this.baseUrl + '/products/category/category')
+    return this.http.get<category[]>(this.baseUrl + '/sales/category/category')
   }
 }
 
