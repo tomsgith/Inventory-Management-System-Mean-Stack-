@@ -29,7 +29,7 @@ export interface Product {
     name: String,
     brand: String, 
     description: String, 
-    quantity:number,
+    quantity: number,
     category:String,
     price:Number,
     image:String,
