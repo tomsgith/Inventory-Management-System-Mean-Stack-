@@ -40,7 +40,7 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.productService.getProductById(this.router.snapshot.paramMap.get('id')).subscribe((data) => {
-      if (!data) {
+      
         this.editProduct.patchValue({
           name: data.name,
           brand: data.brand,
@@ -51,7 +51,7 @@ export class EditProductComponent implements OnInit {
           username: data.username
 
         })
-      }
+      
     });
   }
 
