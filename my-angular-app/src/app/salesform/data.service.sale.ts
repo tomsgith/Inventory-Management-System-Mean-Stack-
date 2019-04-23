@@ -13,24 +13,29 @@ export class SaleDataService {
 
   }
 
+  saveSale(products: Product[]): Observable<Product[]> {
+    return this.http.post<Product[]>(this.baseUrl + '/sales/sale', products)
+  }
+
   getall(): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + '/sales')
   }
-  
+
 }
 
 
 
 export interface Product {
-    name: String,
-    brand: String, 
-    description: String, 
-    quantity:Number,
-    type:String,
-    price:Number,
-    image:String,
-    username:String,
-    created_at: Date,
-    updated_at: Date
+  name: String,
+  brand: String,
+  description: String,
+  quantity: number,
+  type: String,
+  price: Number,
+  image: String,
+  username: String,
+  created_at: Date,
+  updated_at: Date,
+  _id: String
 }
 
