@@ -25,7 +25,7 @@ constructor(
     route.queryParamMap.subscribe((params)=>{
       this.category=params.get('category')
       this.filteredProduct=(this.category)?
-          this.products.filter(p=>p.type===this.category) :
+          this.products.filter(p=>p.category===this.category) :
           this.products;
 
   });

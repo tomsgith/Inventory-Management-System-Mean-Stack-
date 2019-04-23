@@ -29,6 +29,10 @@ export class SupplierDataService {
   getSupplierByName(name: String): Observable<SupplierResponse> {
     return this.http.get<SupplierResponse>(this.baseUrl + '/supplier/' + name)
   }
+
+  getSupplier(): Observable<SupplierResponse> {
+    return this.http.get<SupplierResponse>(this.baseUrl + '/supplier')
+  }
 }
 
 export interface SupplierModel {

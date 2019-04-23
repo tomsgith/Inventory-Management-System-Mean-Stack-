@@ -5,9 +5,8 @@ class ProductService {
 
     }
 
-    add(productObj) {        
+    add(productObj) {      
         let newProduct = new Product(productObj);
-        console.log(newProduct)
         return newProduct.save();
 
     }

@@ -21,8 +21,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-    const id = req.param.id;
-    productService.getOne(id).subscribe(
+    const id = req.params.id;
+    productService.getOne({_id: id}).subscribe(
         (data) => res.status(200).json(data),
         (err) => next(err),
         null);

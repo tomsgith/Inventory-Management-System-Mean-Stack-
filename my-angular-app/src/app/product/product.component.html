@@ -18,6 +18,7 @@
         <th scope="col">Quantity</th>
         <th scope="col">Price</th>
         <th scope="col">Category</th>
+        <th scope="col">Supplier</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -30,6 +31,7 @@
         <td>{{ product.quantity}}</td>
         <td>{{ product.price}}</td>
         <td>{{ product.category}}</td>
+        <td>{{ product.supplier}}</td>
         <span>
           <td><a routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</a></td>
 

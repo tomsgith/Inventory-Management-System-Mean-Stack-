@@ -26,10 +26,11 @@ export interface Product {
     brand: String, 
     description: String, 
     quantity:Number,
-    type:String,
+    category:String,
     price:Number,
     image:String,
     username:String,
+    supplier: String,
     created_at: Date,
     updated_at: Date
 }
