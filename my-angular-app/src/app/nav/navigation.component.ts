@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -26,6 +27,9 @@ import { Component, OnInit } from '@angular/core';
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/supplier']" routerLinkActive="active">Supplier </a>
           </li>
+          <li class="nav-item" style="position: absolute; right: 70px; cursor: pointer">
+            <a class="nav-link" (click)="logout()">Logout </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -34,9 +38,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  logout() {
+    localStorage.clear()
+    this.router.navigate(['login'])
   }
 
 }

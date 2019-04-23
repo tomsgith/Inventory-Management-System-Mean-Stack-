@@ -1,41 +1,52 @@
+<div class="navMarginTop">
+    <h2>New Product</h2>
+<form [formGroup]="newProduct" (ngSubmit)="saveProduct()">
+  <div class="form-group">
+    <label for="name"><strong>Name:</strong></label>
+    <input id="name" type="text" class="form-control" formControlName="name">
+  </div>
+  <div class="form-group">
+    <label for="brand"><strong>Brand:</strong></label>
+    <input id="brand" type="text" class="form-control" formControlName="brand">
+  </div>
+  <div class="form-group">
+    <label for="description"><strong>Description:</strong></label>
+    <input id="description" type="text" class="form-control" formControlName="description">
+  </div>
+  <div class="form-group">
+    <label for="quantity"><strong>Quantity:</strong></label>
+    <input id="quantity" type="number" class="form-control" formControlName="quantity">
 
-<!-- [formGroup]= "newProduct" (ngSubmit)="saveProduct()" -->
-<form [formGroup]= "newProduct"(ngSubmit)="saveProduct()">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input id="name" type="text" class="form-control" formControlName= "name" >
   </div>
   <div class="form-group">
-      <label for="brand">Brand</label>
-      <input id="brand" type="text" class="form-control" formControlName= "brand" >
-    </div>
-  <div class="form-group">
-        <label for="description">Description</label>
-        <input id="description" type="text" class="form-control" formControlName="description">
-      </div>
-    <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <input id="quantity" type="number" class="form-control" formConrolName="quantity">
-          
-        </div>
-  <div class="form-group">
-    <label for="price">Price</label>
+    <label for="price"><strong>Price:</strong></label>
     <div class="iput-group">
-        <span class="input-group-addon">$</span>
-        <input id="price" type="number" class="form-control" formControlName="price" >
-      </div>    
+      <span class="input-group-addon">$</span>
+      <input id="price" type="number" class="form-control" formControlName="price">
+    </div>
   </div>
   <div class="form-group">
-      <label for="category">Categories</label>    
-      <select id="category" class="form-control" formControlName="category">
-        <option value=""></option>
-        <option *ngFor="let cat of categories$ | async" [value]="cat.$key">
-        </option>
-        </select>
-    </div>
+    <label for="category"><strong>Categories:</strong></label>
+    <select id="category" class="form-control" formControlName="category">
+      <option value=""></option>
+      <option *ngFor="let cat of categories$ | async" [value]="cat.name">
+        {{cat.name}}
+      </option>
+    </select>
+  </div>
   <div class="form-group">
-      <label for="username">User</label>
-      <input id="username" type="text" class="form-control" formControlName="username">
-    </div>
-<button class="btn btn-primary" type="submit">Save</button>
+    <label for="supplier"><strong>Supplier:</strong></label>
+    <select id="supplier" class="form-control" formControlName="supplier">
+      <option value=""></option>
+      <option *ngFor="let sup of suppliers$" [value]="sup.name">
+        {{sup.name}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="username"><strong>User:</strong></label>
+    <input id="username" type="text" class="form-control" formControlName="username">
+  </div>
+  <button class="btn btn-primary" type="submit">Save</button>
 </form>
+</div>
