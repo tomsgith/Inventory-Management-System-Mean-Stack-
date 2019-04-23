@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit {
     this.productService.delete(id).
       subscribe((data) => {
         this.getProduct()
-      }, (err) => { console.log('Cannot delete this product') })
+      }, (err) => { console.log('Can not delete this product') })
   }
 
   searchProduct(event){
