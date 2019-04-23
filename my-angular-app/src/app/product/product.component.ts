@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service'
 import { ActivatedRoute } from '@angular/router';
+import { Product } from '../salesform/data.service.sale';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
-  public products;
+  products: Product[] = [];
+  filteredProduct:Product[]=[];
 
   constructor(public productService: ProductService, public router: ActivatedRoute) {
     this.getProduct();
@@ -18,6 +20,7 @@ export class ProductComponent implements OnInit {
   getProduct() {
     this.productService.getProductsService().subscribe((data) => {
       this.products = data;
+      this.filteredProduct = data;
     });
   }
   deleteProduct(id: String): void {
@@ -27,9 +30,9 @@ export class ProductComponent implements OnInit {
       }, (err) => { console.log('Cannot delete this product') })
   }
 
-   searchProduct(query:String){      
-    
-      } 
+  searchProduct(event){
+    this.filteredProduct = this.products.filter(p=> p.name.toLowerCase().includes(event.target.value.toLowerCase()))
+  }
 
   ngOnInit() {
 
