@@ -27,6 +27,10 @@ export class ProductComponent implements OnInit {
       }, (err) => { console.log('Cannot delete this product') })
   }
 
+   searchProduct(query:String){      
+    
+      } 
+
   ngOnInit() {
 
   }

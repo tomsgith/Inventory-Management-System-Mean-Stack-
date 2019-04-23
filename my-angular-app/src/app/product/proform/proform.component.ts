@@ -34,9 +34,9 @@ export class ProformComponent {
     this.productService.addProduct(this.newProduct.value).
       subscribe((data) => {
         console.log('New product added')
-        
+        this.pageRouter.navigate(['product'])
       }, (err) => { console.log('Cannot add this product') })
-      this.pageRouter.navigate(['product'])
+      
 
   }
 

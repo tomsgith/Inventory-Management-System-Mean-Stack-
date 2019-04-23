@@ -18,6 +18,7 @@ export class ProductService {
   getProductById(id: String): Observable<any> {
     return this.http.get(this.url + '/product/'+id)
   }
+
  
   editProduct(product: ProductModel): Observable<ProductModel> {
     return this.http.put<ProductModel>(this.url + '/product/edit', product);

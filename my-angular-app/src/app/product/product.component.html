@@ -4,10 +4,13 @@
   <p>
 <a routerLink="/product/new" class="btn btn-primary">New Product</a>
 </p>
-<div>
+<!-- <div>
   <label for="search">Search Product</label>
-  <input  id="search"type="search" class="form-control" placeholder="Search product"> 
-</div>
+  <input
+    #query
+   (keyup)="searchProduct(query.value)"
+   id="search"type="search" class="form-control" placeholder="Search product"> 
+</div> -->
 <table class="table table-striped">
   <thead>
   <tr>
@@ -31,9 +34,8 @@
     <td>{{ product.price}}</td>
     <td>{{ product.category}}</td>        
     <span><td><a routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</a></td>
-      <!-- //how to connect it to the backend -->
-    <td><a (click)="deleteProduct(product._id)"  class="btn btn-danger">Delete</a></td></span>
     
+    <td><a (click)="deleteProduct(product._id)"  class="btn btn-danger">Delete</a></td></span>    
 
   </tr>
   
