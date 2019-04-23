@@ -44,6 +44,6 @@ export class SalesformComponent {
   onSale() {
     this.saleService.saveSale(this.selectedProducts).subscribe((data) => {
       this.pageRoute.navigate(['home'])
-    });
+    }); 
   }
 }
