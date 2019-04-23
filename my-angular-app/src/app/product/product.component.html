@@ -2,36 +2,42 @@
 
 <div class="navMarginTop">
   <p>
-<a routerLink="/product/new" class="btn btn-primary">New Product</a>
-</p>
-<div>
-  <label for="search">Search Product</label>
-  <input  id="search"type="search" class="form-control" placeholder="Search product"> 
-</div>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Name</th>
-    <th scope="col">Brand</th>
-    <th scope="col">Description</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr  *ngFor="let product of products; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <td>{{ product.name}}</td>
-    <td>{{ product.brand }}</td>
-    <td>{{ product.description}}</td>   
-    <td>{{ product.quantity}}</td>
-    <td><a routerLink="/product/edit" class="btn btn-primary">Edit</a></td>
-   
-    
+    <a routerLink="/product/new" class="btn btn-primary">New Product</a>
+  </p>
+  <div>
+    <label for="search">Search Product</label>
+    <input (keyup)="searchProduct($event)" id="search" type="search" class="form-control" placeholder="Search product">
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Description</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProduct; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ product.name}}</td>
+        <td>{{ product.brand }}</td>
+        <td>{{ product.description}}</td>
+        <td>{{ product.quantity}}</td>
+        <td>{{ product.price}}</td>
+        <td>{{ product.category}}</td>
+        <span>
+          <td><a routerLink="/product/edit/{{product._id}}" class="btn btn-primary">Edit</a></td>
 
-  </tr>
-  
-  </tbody>
-</table>
+          <td><a (click)="deleteProduct(product._id)" class="btn btn-danger">Delete</a></td>
+        </span>
+
+      </tr>
+
+    </tbody>
+  </table>
 </div>

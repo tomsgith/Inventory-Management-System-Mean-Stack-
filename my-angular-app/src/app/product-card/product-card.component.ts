@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../salesform/data.service.sale';
+import { SaleLoadService } from '../sale-load.service';
 
 @Component({
   selector: 'product-card',
@@ -9,13 +10,12 @@ import { Product } from '../salesform/data.service.sale';
 export class ProductCardComponent {
 @Input('product') product:Product;
 @Input('show-actions') showActions=true;
-  constructor() { }
+  constructor(private saleLoad:SaleLoadService) { }
 
   addToCart(product:Product){
-   let cardId=localStorage.getItem('cardId');
-   if(!cardId){
-     
-   }
+    
+   
+   
   }
 
 }

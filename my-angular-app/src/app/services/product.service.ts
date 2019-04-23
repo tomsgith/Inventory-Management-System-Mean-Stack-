@@ -15,18 +15,26 @@ export class ProductService {
     return this.http.get(this.url + '/product');
   }
 
+  getProductById(id: String): Observable<any> {
+    return this.http.get(this.url + '/product/'+id)
+  }
+
+ 
   editProduct(product: ProductModel): Observable<ProductModel> {
-    return this.http.patch<ProductModel>(this.url + '/edit/', product);
+    return this.http.put<ProductModel>(this.url + '/product/edit', product);
   }
 
   addProduct(product): Observable<any> {
-    return this.http.post<ProductModel>(this.url, product)
+    return this.http.post<ProductModel>(this.url +'/product', product)
   }
 
   getall(): Observable<category[]> {
     return this.http.get<category[]>(this.url + '/product/category/category')
   }
 
+  delete(id:String):Observable<any>{
+    return this.http.delete(this.url +'/product/'+ id);
+  }
 
 }
 
