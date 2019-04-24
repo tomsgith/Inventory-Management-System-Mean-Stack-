@@ -10,6 +10,7 @@ const saleSchema = new mongoose.Schema({
     username:String,
     created_at: Date,
     updated_at: Date,
+    productid: String,
     saleDate:Date
 });
 saleSchema.pre('save', function (next) {

@@ -26,17 +26,18 @@ export class SaleDataService {
 
 
 export interface Product {
-    name: String,
-    brand: String, 
-    description: String, 
-    quantity: number,
-    category:String,
-    price:Number,
-    image:String,
-    username:String,
-    supplier: String,
-    created_at: Date,
-    updated_at: Date,
-    _id: String
+  name: String,
+  brand: String,
+  description: String,
+  quantity: number,
+  category: String,
+  price: Number,
+  image: String,
+  username: String,
+  supplier: String,
+  created_at: Date,
+  updated_at: Date,
+  _id: String,
+  productid: String
 }
 

@@ -42,8 +42,14 @@ export class SalesformComponent {
   }
 
   onSale() {
+    for (let x = 0; x < this.selectedProducts.length; x++) {
+      this.selectedProducts[x].productid = this.selectedProducts[x]._id
+      delete this.selectedProducts[x]._id
+    }
+    console.log(this.selectedProducts);
+
     this.saleService.saveSale(this.selectedProducts).subscribe((data) => {
       this.pageRoute.navigate(['home'])
-    }); 
+    });
   }
 }

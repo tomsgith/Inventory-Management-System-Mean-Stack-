@@ -57,28 +57,29 @@ router.get('/sale', function (req, res, next) {
 
 });
 router.post('/sale', async function (req, res, next) {
-  // console.log(">>>", req.body)
   for (let x = 0; x < req.body.length; x++) {
-    let quantity = 0;
+    let item = req.body[x]
 
-    await productService.getOne({ "_id": req.body[x]._id })
-      .subscribe((product) => {
-        quantity = product.quantity
+    await productService.getOne({ "_id": item.productid })
+      .subscribe(async (product) => {
+        item.quantity = product.quantity - item.quantity
+        await productService.update({ "_id": item.productid }, {
+          $set: { quantity: item.quantity }
+        }).subscribe(async () => {
+          await productSale.add(item)
+            .then(() => {
+              return res.status(200).json({ success: true })
+            })
+            .catch((err) => next(err));
+        }, () => {
+          return res.status(200).json({
+            success: false
+          })
+        })
       }, (err) => console.log(err))
-
-    const queryObj = { "_id": req.body[x]._id }
-    await productService.update(queryObj, {
-      $set: { quantity: quantity - req.body[x].quantity }
-    }).subscribe(() => console.log("succes"), () => console.log("cant update"))
-
-    await productSale.add(req.body[x])
-      .then(() => console.log('success saved sale for product'))
-      .catch((err) => next(err));
   }
-  res.status(200).json({
-    success: true
-  })
 });
+
 //getting all categories
 router.get('/category/category', (req, res, next) => {
   const query = {};
