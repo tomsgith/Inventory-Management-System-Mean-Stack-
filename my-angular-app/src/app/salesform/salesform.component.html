@@ -3,7 +3,7 @@
 <div class="navMarginTop">
   <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         Product
       </h4>
@@ -31,7 +31,7 @@
       </ul>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="">
         <h4 class="mb-3">Shopping Cart</h4>
       </div>
@@ -42,7 +42,9 @@
             <th scope="col">Name</th>
             <th scope="col">Brand</th>
             <th scope="col">Description</th>
+            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -52,10 +54,12 @@
             <td>{{ product.name}}</td>
             <td>{{ product.brand }}</td>
             <td>{{ product.description}}</td>
+            <td>{{product.price}}</td>
             <td>
-              <input id="search" type="search" [(ngModel)]=product.quantity class="form-control"
-                placeholder="Product Quantity">
+              <input  type="text" [(ngModel)]=product.quantity style="width: 120px;"   class="form-control"
+                placeholder="Quantity">
             </td>
+            <td>{{product.totalPrice}}</td>
             <td>
               <i class="material-icons"
                 style="vertical-align: middle; margin-right: 10px; color: #d42f2f; cursor: pointer"
@@ -66,8 +70,8 @@
           </tr>
         </tbody>
       </table>
-
-      <button class="btn btn-primary btn-lg btn-block" (click)="onSale()" style="width: 200px; float: right;"
+      
+      <button class="btn btn-primary btn-lg btn-block" (click)="onSale()" style="width: 120px; float: right;"
         type="submit">Sale</button>
     </div>
 

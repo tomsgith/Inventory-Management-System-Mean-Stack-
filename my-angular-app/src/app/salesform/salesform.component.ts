@@ -12,6 +12,7 @@ export class SalesformComponent {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   selectedProducts: Product[] = [];
+  
 
   constructor(public productService: ProductService, private saleService: SaleDataService, private route: ActivatedRoute, private pageRoute: Router) {
     this.getProduct()
@@ -31,7 +32,9 @@ export class SalesformComponent {
   onProductSelected(product: Product) {
     for (let x = 0; x < this.selectedProducts.length; x++) {
       if (this.selectedProducts[x]._id === product._id) {
-        return this.selectedProducts[x].quantity = this.selectedProducts[x].quantity + 1
+        this.selectedProducts[x].quantity = this.selectedProducts[x].quantity + 1
+        this.selectedProducts[x].totalPrice=this.selectedProducts[x].quantity * this.selectedProducts[x].price
+        return 
       }
     }
     this.selectedProducts.push(product)
