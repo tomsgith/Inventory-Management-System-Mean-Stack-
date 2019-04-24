@@ -22,7 +22,7 @@ DatabasConnection._connect()
 
 //middleware
 app.use('*', async function (req, resp, next) {
-    if (req.originalUrl.includes('/api/auth'))
+    if (!req.originalUrl.includes('/api/') || req.originalUrl.includes('/api/auth'))
         return next()
     else {
         const token = req.headers.authorization
@@ -40,6 +40,7 @@ app.use('*', async function (req, resp, next) {
 })
 
 //routing
+app.use('/', express.static('public'))
 app.use('/api/auth', authRoute)
 app.use('/api/sales', salesRoute)
 app.use('/api/product', productSales)

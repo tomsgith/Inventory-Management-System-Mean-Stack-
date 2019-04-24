@@ -31,13 +31,14 @@ export interface Product {
   description: String,
   quantity: number,
   category: String,
-  price: Number,
+  price: number,
   image: String,
   username: String,
   supplier: String,
   created_at: Date,
   updated_at: Date,
   _id: String,
+  totalPrice: Number;
   productid: String
 }
 
