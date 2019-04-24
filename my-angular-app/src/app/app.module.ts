@@ -25,6 +25,7 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
 import { SaleLoadService } from './sale-load.service';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { PageNotFoundComponent } from './page-not-found.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,8 +36,8 @@ const appRoutes: Routes = [
   { path: 'product/edit/:id', component: EditProductComponent, canActivate: [AuthGuardService] },
   { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuardService] },
   { path: 'supplier', component: SupplierComponent, canActivate: [AuthGuardService] },
-  { path: 'sale', component: SalesformComponent, canActivate: [AuthGuardService] }
-  // { path: '**', component: PageNotFoundComponent }
+  { path: 'sale', component: SalesformComponent, canActivate: [AuthGuardService] },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 export function tokenGetter() {
@@ -57,7 +58,8 @@ export function tokenGetter() {
     SupplierModalContent,
     NavigationComponent,
     SalesFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    PageNotFoundComponent
   ],
   entryComponents: [
     SupplierModalContent
